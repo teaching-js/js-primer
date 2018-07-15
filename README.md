@@ -4,3 +4,4 @@ Three key lessons and a bunch of resources to help you become a better programme
 * [Labs](labs)
 * [Content](content)
 * [Resources](resources)
+* [Assignments](assignment_ideas)
