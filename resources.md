@@ -1,7 +1,7 @@
----
-title: Resources
-description: Additional resources you may find useful from around the web.
----
+Resources
+========
+Additional resources you may find useful from around the web
+
 ## Key Resources
 * [Mozilla Developer's Network (MDN)](https://developer.mozilla.org/en-US/docs/Learn/JavaScript)
 * [Web APIs Reference (MDN)](https://developer.mozilla.org/en-US/docs/Web/API)
