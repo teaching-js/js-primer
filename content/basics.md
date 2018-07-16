@@ -94,6 +94,64 @@ JavaScript allows us to have features that are common-place in native applicatio
 
 ### Loops and Iteration
 
+Let's assume we have an Object and Array as below:
+```js
+
+const array = [ "Teddy", "Clock"]
+
+const item = {
+   name: "Box",
+   weight: 10,
+   contents: array
+}
+
+```
+
+The `while` or `do-while` loop:
+```js
+// same as c
+let index = 0
+
+while (index < array.length) {
+   let value = array[index]
+   index++
+}
+
+do {
+   let value = array[index]
+} while (index < array.length);
+
+```
+
+The `c-style` loop:
+```js
+// Iteration over an array
+for (let index = 0; index < array.length; index++) {
+   // do something with item
+   // very similar to c
+   let value = array[property]
+}
+```
+
+The `for ... in` loop:
+```js
+// Iteration over an object/array
+for (let property in items) {
+   // do something with item
+   // very similar to python
+   let value = items[property]
+}
+```
+
+The `for ... of` loop:
+```js
+// requires implementation of 'Iterator'
+for (const item of items) {
+   // the value of item for each iteration
+   item => "Box", 10, ["Teddy", "Clock"]
+}
+```
+
 
 ## Types
 
