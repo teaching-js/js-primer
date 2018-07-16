@@ -1,6 +1,6 @@
 # Ideas
 
-* Create React
+* Create React / VDOM
 * Fetch Data from a public API and display it
 * Create an API which app has to fetch -> render -> refetch -> re-render
 * Drag and Drop based game (Mouse or Touch API)
