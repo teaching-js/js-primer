@@ -1,4 +1,4 @@
-# The Basics
+# An Overview of JavaScript
 
 ## The Language
 
@@ -81,22 +81,121 @@ JavaScript allows us to have features that are common-place in native applicatio
 
 ## Grammar
 
+### Variable Declaration
+JavaScript is a dynamically typed language so we need not explicitly state our types before variables as we might in C.
 
+Variables must ([src](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types)):
+> ...start with a letter, underscore (\_), or dollar sign ($); subsequent characters can also be digits (0-9). Because JavaScript is case sensitive, letters include the characters "A" through "Z" (uppercase) and the characters "a" through "z" (lowercase).
 
-### Variables
+Variables also must be declared with one four prefixes;
+`const`, `let`, `var`, and prefix-less (global).
 
+The `const` prefix should be used almost always, and
+simply states that this value cannot be re-assigned later
+in the program.
+
+The `let` prefix is slightly more flexible in that it can be reassigned, and should be used when `const` cannot.
+
+The use of `var` no longer makes sense in modern JavaScript, it's like `let` in that it can be reassigned,
+but is also 'hoisted' to the top of the current code block.
+
+Given this is a common source of bugs, and given it offers no real advantage over `let`, I'd suggest you just use `let`.
+
+```js
+const myVar      = 10  
+let   myOtherVar = "Alex"
+var   myVarVar   = []
+```
 
 ### Operators
+
+JavaScript uses a familiar c-like set of operators
+with a few additional ones.
+
+```js
+// assignment
+let      a = 5
+const list = [1, 5]
+
+// bitwise operations
+^ | & >> <<
+
+// unary, postfix
+++a, a++, !a, -a,
+
+// comparison (will infer type)
+==, !=
+// eg.
+1 == '1' // true
+
+// strict equality (reference or value equality)
+===, !==
+// eg.
+1 === '1' // false
+
+// in x, like python
+a in list // true
+```
+
+## Types
+
+While types are dynamic they do exist under the hood, and the JS engine will complain if you do too many silly things.
+
+### Primitives
+JavaScript has seven primitive types:
+
+* boolean (true, false)
+* undefined (a declared variable with no value -- don't confuse with null)
+* number
+* string
+* null
+* symbol
+* object (everything is an object)
+   * Function
+   * Array
+   * Object
+   * RegExp
+   * Date
+   * DOMElement
+
+You can verify the type of any variable with `typeof`.
+
+### Objects
+
+
+
+## Control Flow, Loops and Iteration
 
 
 ### Control Flow
 
+JavaScript is very c-like in its control-flow.
 
-### Loops and Iteration
+```js
+if (cond) {
+   // do something
+}
 
+if (cond) {
+   // do something
+} else {
+   // do something
+}
+
+// as with c, one liners don't require brackets.
+if (cond)
+   // do soemthing
+else
+   // something else
+
+// And of course ternary
+const x = cond ? 22 : 0
+```
+
+
+### Loops
 Let's assume we have an Object and Array as below:
 ```js
-
 const array = [ "Teddy", "Clock"]
 
 const item = {
@@ -104,7 +203,6 @@ const item = {
    weight: 10,
    contents: array
 }
-
 ```
 
 The `while` or `do-while` loop:
@@ -119,6 +217,7 @@ while (index < array.length) {
 
 do {
    let value = array[index]
+   index++
 } while (index < array.length);
 
 ```
@@ -146,15 +245,9 @@ for (let property in items) {
 The `for ... of` loop:
 ```js
 // requires implementation of 'Iterator'
-for (const item of items) {
+// Common iterables include String and Array types.
+for (const item of array) {
    // the value of item for each iteration
-   item => "Box", 10, ["Teddy", "Clock"]
+   item => ["Teddy", "Clock"]
 }
 ```
-
-
-## Types
-
-### Primitives
-
-### Objects
