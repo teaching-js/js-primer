@@ -3,19 +3,19 @@
 Three key lessons and a bunch of resources to help you become a better programmer.
 
 ## Topics
-1. [Language Context, Syntax, Types](content/basics), [Objects](content/objects)
-   * Language background, design
-   * Getting up to speed as quickly as possible
-2. [The Document Object Model (DOM)]((content/dom))
-   * Brief understanding of the DOM
-   * Manipulating the DOM in the browser
-3. [Async Programming, AJAX](content/async)
-   * Understanding the event loop, single-threaded nature
-   * Dealing with async challenges
+* [Language Context, Syntax, Types](content/basics), [Objects](content/objects)
+   - Language background, design
+   - Getting up to speed as quickly as possible
+* [The Document Object Model (DOM)](content/dom)
+   - Brief understanding of the DOM
+   - Manipulating the DOM in the browser
+* [Async Programming, AJAX](content/async)
+   - Understanding the event loop, single-threaded nature
+   - Dealing with async challenges
 
 ## Resources
 * [Examples](examples)
-* [Content](content)
+* [Lecture Content](content)
 * [Assignments](assignment_ideas)
 * [Additional Resources](resources)
 

@@ -412,3 +412,9 @@ for (const item of array) {
    item => ["Teddy", "Clock"]
 }
 ```
+
+## Disclaimer:
+Learning any programming language in three weeks is **impossible**,
+and JavaScript is no exception. While the below attempts to provide a fairly
+comprehensive overview, there is lots of detail and depth left out to aid you
+to 'get going' faster. This comes at a cost!
