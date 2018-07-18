@@ -162,7 +162,8 @@ You can verify the type of any variable with `typeof`.
 
 ### Objects
 
-Objects are everywhere in JavaScript.
+Objects are everywhere in JavaScript. For a deeper dive into
+some of the more common ones check out this [link](objects)
 
 The basic Object declaration is simply:
 
@@ -179,8 +180,87 @@ const myOtherObject = new Object()
 The new keyword is a constructor. Similar to Java, `new`
 will call a constructor function to initialise an object.
 
-## Scope, Control Flow, Loops and Iteration
+Objects can have properties, and methods. Given the fact that (basically)
+everything is an object, these differences are more semantic than real.
 
+Adding a property or methods is as simple as:
+
+```js
+const myObject = {}
+myObject.a = "a"
+
+myObject.f = function() { return this.a }
+
+// or in one go:
+const myObject = {
+   a: "a",
+   f() {
+      return this.a
+   }
+}
+```
+
+A further note, properties and methods can be accessed with the `.` syntax or
+via their string equivalent.
+
+```js
+// that is
+obj.a == obj['a']
+```
+
+#### The dreaded `this`
+
+Above you'll note I've added the reserved word `this` to a method statement.
+What is `this`? In simple terms `this` references the enclosing object in which
+a function/statement executes. But be careful!
+
+In some cases the binding of `this` may not be so obvious; usually this is
+caused by calling a function and wrongly assuming the object that it
+is immediately enclosed by is the one you believe it to be.
+
+For more on `this`, check out [*this* article](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch1.md).
+
+
+#### Prototypes and constructor functions
+
+In the first example on Objects above we used the `new` keyword as an
+alternate way to create an Object; but we simply used it to create a default
+ object, and realistically, we would always use the far simpler `obj = {}` syntax to do so.
+
+Anything that is created with the `new` keyword will inherit from the **prototype**
+chain of the object being initialised. This is *like* subclasses, but it's also not the same.
+
+To properly create a complex object, we need can have a function constructor and
+we need to extend the Prototype of said function.
+
+This looks something like:
+```js
+// note the use of this in this special constructor
+// also note the caps (a convention for constructor functions)
+function Person(firstName, lastName, age) {
+   this.firstName = firstName
+   this.lastName  = lastName
+   this.age       = age
+}
+
+Person.prototype.getFullName = function() {
+   return this.firstName + " " + this.lastName
+}
+
+Person.prototype.canDrinkAlcohol = function() {
+   return this.age >= 18
+}
+
+// now if we call the constructor function we get this
+new Person("Jeff", "Goldblum", 50)
+// => Person { firstName: 'Jeff', lastName: 'Goldblum', age: 50 }
+```
+
+Our new Person object will have access to the methods in the prototype, and
+magically, the binding of this has already been bound properly to the object we
+want.
+
+## Scope, Control Flow, Loops and Iteration
 
 ### Scope
 
@@ -191,7 +271,7 @@ JavaScript uses a combination of *lexical* scope
 #### Hoisting
 Hoisting is a 'feature' of JavaScript that pushes
 functions in the same block to the top of the scope by
-default. Anything with a `var` declaration is also hoisted.
+default. Anything with a `var` declaration is also hoisted (NB not `const`, `let`).
 In practice, this means that anything in the same code block can always "see"
 every function declaration.
 
@@ -241,8 +321,12 @@ function closureFunction() {
 
 const obj = closureFunction()
 obj.counter() // == 0 Because obj has a reference to count
-
 ```
+
+#### Garbage Collection
+
+Variables that drop out of scope or are no longer reachable
+ will automatically be deleted by the garbage collector. Note, this is why elements referenced under closure aren't deleted, they're still in usable scope.
 
 ### Control Flow
 

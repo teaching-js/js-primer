@@ -11,7 +11,7 @@ function main() {
 
 }
 
-// what will main print?
+// Q: what will main print?
 // Answer: Because setTimeout is asynchronous,
 // even with a setTimeout(0), execution will be
 // "Hello", "End", "World"
