@@ -145,10 +145,10 @@ While types are dynamic they do exist under the hood, and the JS engine will com
 JavaScript has seven primitive types:
 
 * boolean (true, false)
-* undefined (a declared variable with no value -- don't confuse with null)
-* number
+* undefined (a declared variable with no value set -- don't confuse with null)
+* number (float, integer, signed by default)
 * string
-* null
+* null (a declared variable with the value set to null)
 * symbol
 * object (everything is an object)
    * Function
@@ -162,10 +162,87 @@ You can verify the type of any variable with `typeof`.
 
 ### Objects
 
+Objects are everywhere in JavaScript.
+
+The basic Object declaration is simply:
+
+```js
+// note const limitations apply only to reassigning
+// the Object. Object properties can still be altered
+// with a const declaration.
+const myObject = {}
+
+// or like this
+const myOtherObject = new Object()
+```
+
+The new keyword is a constructor. Similar to Java, `new`
+will call a constructor function to initialise an object.
+
+## Scope, Control Flow, Loops and Iteration
 
 
-## Control Flow, Loops and Iteration
+### Scope
 
+JavaScript uses a combination of *lexical* scope
+(blocks { } and up the page seperate scope),
+*hoisting* and *closures*.
+
+#### Hoisting
+Hoisting is a 'feature' of JavaScript that pushes
+functions in the same block to the top of the scope by
+default. Anything with a `var` declaration is also hoisted.
+In practice, this means that anything in the same code block can always "see"
+every function declaration.
+
+Essentially:
+
+```js
+// function is called 'before' it's declared (valid)
+myFunction()
+
+function myFunction() {
+   // name refers to the var name via hoisting
+   name = "Andrew"
+   console.log("Hi", name)
+}
+// this will be hoisted
+var name
+```
+... Is valid.
+
+#### Closures
+
+Closures are a super important subject to properly understand
+if you want to be a true JavaScript ninja. Closures simply allow
+a reference to a variable to remain even if it drops out of technical scope.
+Don't dwell too much on this. [Here's a much better explanation](https://hackernoon.com/understanding-javascript-closures-4188edf5ea1b).
+
+```js
+// a simple closure
+function closureFunction() {
+
+   // here the count variable is only in the function's scope,
+   // but myObject stores a reference so it hangs around even when
+   // the function returns.
+   let count = 0
+
+   const myObject = {
+      counter() {
+         return count
+      },
+      increment() {
+         count++
+      }
+   }
+
+   return myObject
+}
+
+const obj = closureFunction()
+obj.counter() // == 0 Because obj has a reference to count
+
+```
 
 ### Control Flow
 
