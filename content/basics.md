@@ -60,6 +60,8 @@ JavaScript allows us to have features that are common-place in native applicatio
 
 ## In the browser
 
+There are a number of ways to declare scripts in the browser.
+
 ```html
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -68,16 +70,25 @@ JavaScript allows us to have features that are common-place in native applicatio
       <title>My first JavaScript</title>
    </head>
    <body>
-      <!-- Note the placement of the script here -->
+      <!-- This is an in-line script -->
       <script>
          alert('Hello World!')
       </script>
-      <!-- This also would work
+
+      <!-- This also would work, for the local file filename.js -->
       <script src="filename.js"></script>
-      -->
+
+      <!-- We could also get a script from a CDN -->
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
    </body>
 </html>
 ```
+
+Something to note; JavaScript will execute as soon as it's parsed -- this
+may not be what is desired. Usually it isn't, particularly for scripts that
+need to interact with the DOM. We'll talk about managing this when we talk more
+about the DOM.
 
 ## Grammar
 
@@ -412,6 +423,48 @@ for (const item of array) {
    item => ["Teddy", "Clock"]
 }
 ```
+
+### Error Handling
+
+Error handling in JavaScript is Java-like in syntax. Try something risky,
+and if it fails catch the exceptions thrown by the thing that went wrong.
+
+```js
+try {
+   somethingBad()
+} catch (e) {
+   // an error occurred
+   const message = e.message
+} finally {
+   // do something that u would do either way
+}
+
+// can create own errors or throw errors like so.
+const e = new Error("Bad Thing Happened")
+
+// And there's also the 'throw' syntax
+// you don't even need to create a custom error you can simply throw signal
+// something went wrong.
+throw "Error"
+```
+
+One further note on errors. We can, if we so choose, create specific catch handlers.
+
+Most of the time this is overkill, but it can be useful:
+
+```js
+try {
+    somethingBad()
+} catch (e if e instanceof TypeError) {
+    // statements to handle TypeError exceptions
+} catch (e if e instanceof RangeError) {
+    // statements to handle RangeError exceptions
+}
+```
+
+Note, failing to handle errors properly in JavaScript can be particularly
+unforgiving, and hard to detect. If you've got time, get used to the Mozilla or
+Chrome devtools and understand the use of breakpoints to debug.
 
 ## Disclaimer:
 Learning any programming language in three weeks is **impossible**,
