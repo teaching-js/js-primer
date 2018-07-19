@@ -20,6 +20,7 @@ following methods.
 document.getElementById(id)
 document.getElementsByTagName(name)
 document.createElement(name)
+document.getElementsByClassName(className)
 
 // node and element interactions
 parentNode.appendChild(node)
@@ -42,4 +43,8 @@ window.innerWidth
 
 ## DataTypes
 
+
+
 ## Events
+
+DOM event model.

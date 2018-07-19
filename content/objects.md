@@ -100,7 +100,37 @@ const greet = name => "Hello " + name
 // But arrow functions also have one special property!
 // they bind not to the enclosing object, but the surrounding context.
 // This is important in areas where you may normally have had to 'bind' a fn.
-addEventListener('click', handler.fn.bind(handler))
+element.addEventListener('click', handler.fn.bind(handler))
 // vs.
-addEventListener('click', () => handler.fn()) // yay!
+element.addEventListener('click', () => handler.fn()) // yay!
+```
+
+In some cases you may need to explicitly alter the value of `this`
+that you're trying to manipulate. In such cases, one form of the below methods
+will be appropriate.
+
+### Bind `.bind(thisArg)`
+Bind explicitly nominates a function's `this` value and
+returns this new function. Common use with event handlers as above.
+
+```js
+// now objects methods will be bound to object (as it should be)
+// rather than element (which is the enclosing object)
+element.addEventListener('click', object.method.bind(object))
+```
+
+### Call `.call(thisArg, ...args)`
+Call is very similar to `.bind`, except that rather than returning a function,
+it also makes the function call.
+
+```js
+const returnVal = object.method.call(object, arg1, arg2...)
+```
+
+### Apply `.apply()`
+Apply does exactly the same thing as `.call`, except that it takes an Array,
+rather than an arguments list. IE.
+
+```js
+const returnVal = object.method.apply(object, [ arg1, arg2 ])
 ```
