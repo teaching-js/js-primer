@@ -283,8 +283,193 @@ While we wait we can do anything else.
 
 ### Promises
 
+#### Intro
+
 The above worked but got unweidly once websites relied more and more on these types of resource calls.
 Thus js evolved and gave us Promises
 
+a promise is a type of object that a function can return when the function is doing some sort of async operation, such as a network request.
+
+The function sends the requests and does what it needs to do and creates a object called a promise which can be used to track the progress of the request and react to it once it's complete.
+
+consider the following
+
+```js
+function successCallback(result) {
+  console.log("Audio file ready at URL: " + result);
+}
+
+function failureCallback(error) {
+  console.log("Error generating audio file: " + error);
+}
+
+createAudioFileAsync(audioSettings, successCallback, failureCallback);
+```
+
+This is how we used to do things, if you wanted to create a async function you'd define your own interface and take in callback functions.
+
+But if instead createAudioFileAsync returned a promise object you could do this.
+
+```js
+createAudioFileAsync(audioSettings).then(successCallback, failureCallback);
+```
+
+the promise object will be notified when the audio file is done and it can then refer to the success and failure functions the user specified.
+
+The createAudioFileAsync function returns a promise object which has a function called `then`. This basically just takes in functions to trigger once the promise has **Resolved**
+
+#### Chaining
+
+The powerful thing about this is that the `then` function is that it returns a promise. thus they can be chained so we can have various steps of a procedure happen in sequential order.
+
+```js
+doSomething().then(function(result) {
+  return doSomethingElse(result);
+})
+.then(function(newResult) {
+  return doThirdThing(newResult);
+})
+.then(function(finalResult) {
+  console.log('Got the final result: ' + finalResult);
+})
+```
+
+#### Failures
+
+Note that in these `then`'s we don't state a failure callback, which is bad, we should handle a failure.
+
+We can use this
+
+```js
+doSomething().then(function(result) {
+  return doSomethingElse(result);
+})
+.then(function(newResult) {
+  return doThirdThing(newResult);
+})
+.then(function(finalResult) {
+  console.log('Got the final result: ' + finalResult);
+})
+.then(null,failureCallback);
+```
+
+or we can use the shorthand
+
+```js
+doSomething().then(function(result) {
+  return doSomethingElse(result);
+})
+.then(function(newResult) {
+  return doThirdThing(newResult);
+})
+.then(function(finalResult) {
+  console.log('Got the final result: ' + finalResult);
+})
+.catch(failureCallback);
+```
+
+to catch a failure on the whole chain rather then defining a failure for reach individual step.
+
+Note that how this works is that if one step fails it notifies the next promise in the chain who will notify the next promise onwards until it hits the last promise on which we defined a failure callback.
+
+Of course it's possible to chain after a failure if you wish to do some cleanup regardless if a failure occured or not.
+
+```js
+myPromise.then(function() {
+    // simulate failure
+    throw new Error('Something failed');
+})
+.catch(function() {
+    // handle failure
+    console.log('Do that');
+})
+.then(function() {
+    console.log('Do this, no matter what happened before');
+});
+```
+
+#### Creating Promises
+
+Ok cool so how can we use promises in our own code?
+
+All we need to do is specify 2 things, how to resolve and how to reject.
+
+i.e in your async code you need to either call the resolve function signalling you are done with the data you got or call the reject function because something went wrong
+
+```js
+const myFirstPromise = new Promise(
+  function(resolve, reject) {
+  // do something asynchronous which eventually calls either:
+  //   resolve(someValue); // fulfilled
+  // or
+  //   reject("failure reason"); // rejected
+});
+```
+
+#### Uses Of Promises
+
+So one of the thing js introduced recently is the `fetch` function which does all the annoying XHR stuff above for us and just returns a simple promise
+
+```js
+fetch('http://example.com/movies.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(myJson);
+  });
+```
+
+The other thing promises are very useful for is when you want to do a bunch of things in tandem.
+
+```js
+// promise.all takes a bunch of Promises
+// and returns a parent promise which will
+// resolve only if all it's children Resolved
+// and reject otherwise.
+Promise.all([promise1, promise2, promise3]).then(function(values) {
+  console.log("DONE!");
+});
+```
+
+The cool thing about promise.all is that it lets you run several things at once and keep track of all rather then running them one at a time.
+
+it can speed up code by orders of magnitude.
+
+Of course sometimes you don't want _all_ you just want _one_. A example is if you are checking several different shopping sites for a item you wish to buy where you don't care where the item is, you just want to get the first site you find which has the item.
+
+```js
+
+// will return a promise that resolves or
+// rejects as soon as one of it's children
+// resolves or rejectes
+Promise.race([ebay, gumtree, wish]).then(function(values) {
+  console.log(values);
+});
+```
 
 ## AJAX
+
+Everything we have been discussing is ways to implement the set of Web development techniques known as **AJAX** (Asynchronous JavaScript And XML)
+
+It's called that because it was a set of principles for developing a web application that can send and retrieve data from a server asynchronously (in the background) without interfering with the display and behavior of the existing page
+
+I.e be able to update the site live.
+
+the reason it mentions XML is because when it was developed XML was how sites sent little bits of data that wern't full pages to the client.
+
+These days we use JSON a lot more but the principle still stands.
+
+The basic idea is simply a separation of the data a page displays and the display itself.
+
+Basically rather then the server sending the html which renders into your newsfeed, it sends a framework to render a arbitrary newsfeed post and then your computer asks the server for individual posts.
+
+the rendering and data are separated.
+
+![lol](https://derivadow.files.wordpress.com/2007/01/ajax.png?w=506&h=309)
+
+Various libraries try and help reach this model, notably react, vue, angular js, jquery etc. all make it easier for js to render the webpage client side reacting to data from the server.
+
+Why do this?
+
+It's good decoupled code, you can change what data is being sent and how it gets rendered independently. It also shifts to making the client computer do the heavy rendering while leaving the server to do quick data processing. This ends up being faster overall, computers can handle having to render a bunch of things more then server's can handle doing a lot of processing to form html simply because servers are getting hit up non stop.
