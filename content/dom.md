@@ -345,15 +345,4 @@ A approach like this ends up with weird behaviour.
 
 This isn't really covered, basically you can have events fire outside in but this isn't really useful for anything and is more of a legacy feature at this point.
 
-<<<<<<< HEAD
 You can read more about it at [Bubbling And Capturing](https://javascript.info/bubbling-and-capturing) if you are curious.
-=======
-```js
-elem.addEventListener("click", function(){
-  console.log("I GET TRIGGERED FIRST DURING CAPTURE!")
-}), true)
-elem.addEventListener("click",function(){
-  console.log("I GET TRIGGERED AFTER DURING BUBBLE!")
-}))
-```
->>>>>>> 5030287c7db02ce7fed4ba282c030becd78d1c67
