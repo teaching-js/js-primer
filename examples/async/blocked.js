@@ -10,8 +10,8 @@ document.addEventListener('keypress', (event) => {
       // do nothing
     }
   }
-  console.log('key pressed!: ' + keyName);
-});
+  console.log('key pressed!: ' + keyName)
+})
 
 
 // notice how it works fine till you

@@ -145,7 +145,13 @@ These bind directly to a `DOM Node`, that is to say, a event only fires if the c
 But you can also register event handlers directly in JavaScript code.
 
 ```js
-document.getElementById("mybutton").onclick = function(event) { ... }
+// generally preferred style
+document
+   .getElementById("mybutton")
+   .addEventListener('click', function(event) {})
+
+// this also works
+document.getElementById("mybutton").onclick = function(event) {}
 ```
 
 Here what we have done is _binded_ an inline listener function to a event, which is called whenever the particular event is fired. When the relevant event is fired, in this case a `click`,
@@ -174,28 +180,17 @@ There are also some events that don't directly relate to a specific DOM node, su
 These are declared in the same way but we bind our event handlers to the `window` which acts as an overarching anchor for our events.
 
 ```js
-<<<<<<< HEAD
-window.addEventListener("load", (event) => console.log("All resources finished loading!"))
-window.addEventListener("resize", (event) => console.log("Screen was resized"))
-=======
-window.addEventListener("load", function(event) {
-  console.log("All resources finished loading!")
-})
-window.addEventListener("resize", function() {
-    console.log("Screen was resized")
-})
->>>>>>> 5030287c7db02ce7fed4ba282c030becd78d1c67
+window.addEventListener("load",
+   (event) => console.log("All resources finished loading!"))
+window.addEventListener("resize",
+   (event) => console.log("Screen was resized"))
 ```
 
 A very common event used is a timeout event where a certain function is run after a certain amount of time
 
 ```js
 // print out hello after 3000ms (3 seconds)
-<<<<<<< HEAD
 setTimeout(() => alert("Hello"), 3000)
-=======
-setTimeout(function(){ alert("Hello") }, 3000)
->>>>>>> 5030287c7db02ce7fed4ba282c030becd78d1c67
 ```
 
 JavaScript also lets you make your own custom events and state when you want them to fire but for now that's out of the scope.
@@ -204,9 +199,9 @@ Feel free to read more about them on the [MDN Docs](https://developer.mozilla.or
 
 #### `this` binding
 
-Usually the keyword `this` refers to the object which owns the current function being run. By default this is the window object. Outside of a function `this` still refers to the window object.
-
-When the function is in a object, this refers to the object itself. This is similar to how python implements `self` and java implements `this`
+We've covered the basics of `this` in the previous notes,
+but to recap, `this` refers to the _enclosing_ object.
+When the function is in a object, this refers to the object itself. This is similar to how python implements `self` and java implements `this`. But context matters!
 
 ```js
 console.log(this) // window
@@ -214,7 +209,7 @@ function f(){
   console.log(this) // still window
 }
 
-let person = {
+const person = {
     firstName: "John",
     lastName : "Doe",
     id       : 5566,
@@ -238,7 +233,7 @@ clicked.
 
 #### Bubbling
 
-Take a look at the following piece of code
+Take a look at the following piece of code:
 
 ```html
 <div onclick="alert('The handler!')">
@@ -246,7 +241,7 @@ Take a look at the following piece of code
 </div>
 ```
 
-Here it is rendered
+Here it is rendered:
 
 <hr>
 <div onclick="alert('The handler!')">
@@ -256,7 +251,7 @@ Here it is rendered
 
 If you click on the EM the event still happens. This makes sense, if you say that a event should fire on a div, then any click inside the div should fire a event.
 
-But consider the below
+But consider the below:
 
 ```html
 <div onclick="alert('The handler!')">
@@ -299,18 +294,18 @@ function myHandler(event) {
     return
   }
 
-  /* there are better ways to do this */
-  ...
+  /* this is a demo, there are better ways to do this */
 }
 ```
 
-It's important to understand the mechanism by which js propergates a event through the dom so you can structure your event handlers to work in the way you want them to.
+It's important to understand the mechanism by which JavaScript propagates an event through the DOM so you can structure your event handlers to work in the way you want them to.
 
 A simple example is if you want to have a game where clicking on the red dot is how you lose and clicking anywhere else means you win.
 
 A approach like this ends up with weird behaviour.
 
-```HTML
+```html
+<!-- Don't assign js-listeners inline in production code -->
 <div class="my-container" onclick="alert('you won')">
   <div class="my-button" onclick="alert('you lost')">
 </div>
