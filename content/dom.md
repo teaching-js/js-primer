@@ -74,7 +74,275 @@ window.innerWidth
 window.addEventListener(eventType, handler)
 ```
 
+## Events and the Event Loop
 
-## Events
+An `Event` is a blanket term for anything that JavaScript can react to, a screen resize, a click, a drag, a key smash, touch,
+network requests, you name it.
 
-DOM event model.
+Events are managed and processed by a single-threaded loop,
+which will run in your browser.. forever. We call this the
+_Event Loop._
+
+### The Event Loop
+
+This is at its core quite simple, in JavaScript is something like the following.
+
+```js
+while (queue.waitForMessage()) {
+  queue.processNextMessage()
+}
+```
+
+Every time a event is triggered, let it be a click, a key press, or a mouse move, a event is added to the queue.
+
+Unlike a lot of more complex concurrency models, JavaScript uses a `Run-to-completion` model. This means that while code is handling one event, another event will not be handled.
+
+Again this is a result of its single-threaded nature. Events can be added to the queue but only processed one at a time.
+
+The advantage of this is its simple to reason about; the obvious disadvantage is that if one event handler takes too long to process, all other events are queued.
+
+This means while the page is processing, it essentially freezes and no other fired events can be caught and processed.
+
+See `examples/blocked`.
+
+Not that I/O, including keyboard, touch and mouse events
+can take different lengths of time to be processed by the OS,
+before they reach the browser -- and in this time; JavaScript
+will simply move on to its next task. It will not wait for a long network request to complete for example, before it
+continues with other jobs. This helps performance but
+can create some confusion about the way in which our
+code is being executed. More on this when we properly
+discuss `async`.
+
+### More on Events
+
+#### Intro
+
+OK so cool JavaScript gives us the ability to write code that gets run on a certain event asynchronously! but how do we actually do that?
+
+The internal JavaScript event loop is constantly capturing events but it needs to know what to do with an event firing,
+or even whether to ignore it completely.
+
+In the DOM, we manage this with `listeners`.
+
+#### DOM based
+
+You can do this directly in `HTML` with a variety of tags such as `onclick`, `onhover`, `onblur` etc. read about them on the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/Events).
+
+These bind directly to a `DOM Node`, that is to say, a event only fires if the click happened on the object on the screen. (more on how this works this further down)
+
+```html
+<script>
+  function myFunction(){
+    alert('i am a hack0r')
+  }
+</script>
+
+<div onclick="alert('i am a hack0r')"></div>
+<div onclick="myFunction()"></div>
+```
+
+But you can also register event handlers directly in JavaScript code.
+
+```js
+document.getElementById("mybutton").onclick = function(event) { ... }
+```
+
+Here what we have done is _binded_ an inline listener function to a event, which is called whenever the particular event is fired. When the relevant event is fired, in this case a `click`,
+our button (presumably an html element of some kind)
+will provide an `ClickEvent` object to the EventLoop,
+which will dealt with by our shiny new event handler.
+
+```js
+function myEventHandler(event) { ... }
+
+// generally preferred style
+document
+   .getElementById("mybutton")
+   .addEventListener('click', myEventHandler)
+
+// but this works too
+document.getElementById("mybutton").onclick = myEventHandler
+```
+
+The event object is hard to say anything about because what it contains depends on the event. A key press event object holds information on what key was pressed, a click holds information on where the click happened etc. See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/Events) for more info.
+
+#### Other
+
+There are also some events that don't directly relate to a specific DOM node, such as a screen resize or a "loaded" event which fires once the document has been fully loaded.
+
+These are declared in the same way but we bind our event handlers to the `window` which acts as an overarching anchor for our events.
+
+```js
+<<<<<<< HEAD
+window.addEventListener("load", (event) => console.log("All resources finished loading!"))
+window.addEventListener("resize", (event) => console.log("Screen was resized"))
+=======
+window.addEventListener("load", function(event) {
+  console.log("All resources finished loading!")
+})
+window.addEventListener("resize", function() {
+    console.log("Screen was resized")
+})
+>>>>>>> 5030287c7db02ce7fed4ba282c030becd78d1c67
+```
+
+A very common event used is a timeout event where a certain function is run after a certain amount of time
+
+```js
+// print out hello after 3000ms (3 seconds)
+<<<<<<< HEAD
+setTimeout(() => alert("Hello"), 3000)
+=======
+setTimeout(function(){ alert("Hello") }, 3000)
+>>>>>>> 5030287c7db02ce7fed4ba282c030becd78d1c67
+```
+
+JavaScript also lets you make your own custom events and state when you want them to fire but for now that's out of the scope.
+
+Feel free to read more about them on the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events) though.
+
+#### `this` binding
+
+Usually the keyword `this` refers to the object which owns the current function being run. By default this is the window object. Outside of a function `this` still refers to the window object.
+
+When the function is in a object, this refers to the object itself. This is similar to how python implements `self` and java implements `this`
+
+```js
+console.log(this) // window
+function f(){
+  console.log(this) // still window
+}
+
+let person = {
+    firstName: "John",
+    lastName : "Doe",
+    id       : 5566,
+    fullName : function() {
+        return this.firstName + " " + this.lastName
+    }
+}
+```
+
+This is all dandy but what's cool is that when a event is triggered, `this` is bound to the node on which the listener is attached.
+
+The following piece of code:
+
+```html
+<div onclick="console.log(this)"></div>
+```
+Would output the div element itself in the console if
+clicked.
+
+### Capturing An Event
+
+#### Bubbling
+
+Take a look at the following piece of code
+
+```html
+<div onclick="alert('The handler!')">
+  <em>If you click on <code>EM</code>, the handler on <code>DIV</code> runs.</em>
+</div>
+```
+
+Here it is rendered
+
+<hr>
+<div onclick="alert('The handler!')">
+  <em>If you click on <code>EM</code>, the handler on <code>DIV</code> runs.</em>
+</div>
+<hr>
+
+If you click on the EM the event still happens. This makes sense, if you say that a event should fire on a div, then any click inside the div should fire a event.
+
+But consider the below
+
+```html
+<div onclick="alert('The handler!')">
+  <em>If you click on <code onclick="alert('The EM Handler!')">EM</code>, the handler on <code>DIV</code> runs.</em>
+</div>
+```
+<hr>
+<div onclick="alert('The handler!')">
+  <em>If you click on <code onclick="alert('The EM Handler!')">EM</code>, the handler on <code>DIV</code> runs.</em>
+</div>
+<hr>
+
+What should happen? should the first event trigger, the outer one, both?
+
+If you try it out you'll see that both fire, inside out.
+
+This is because of how js by default does **event capturing and bubbling**
+
+By default js _almost_ always bubbles events from the most nested element to the outermost element, firing each event inside out.
+
+There are some cases where the default action is different, for example on a focus event the event doesn't bubble. But almost always the event will bubble.
+
+Now of course this is default but like a lot of things in JavaScript we can override.
+
+```html
+<body onclick="alert(`the bubbling doesn't reach here`)">
+  <button onclick="event.stopPropagation()">Click me</button>
+</body>
+
+```
+
+We can stop specific event chains from bubbling by stopping it in it's tracks.
+
+Or we can be very specific in how we react to an event, `event.target` holds the innermost DOM node that triggered the event so in your event handler you can reject to handle any events that are triggered by nested elements
+
+```js
+function myHandler(event) {
+  // i don't care about nested events
+  if (event.target != this) {
+    return
+  }
+
+  /* there are better ways to do this */
+  ...
+}
+```
+
+It's important to understand the mechanism by which js propergates a event through the dom so you can structure your event handlers to work in the way you want them to.
+
+A simple example is if you want to have a game where clicking on the red dot is how you lose and clicking anywhere else means you win.
+
+A approach like this ends up with weird behaviour.
+
+```HTML
+<div class="my-container" onclick="alert('you won')">
+  <div class="my-button" onclick="alert('you lost')">
+</div>
+```
+
+<hr>
+<style>
+.my-container {
+  width: 100px;
+  height: 100px;
+  background: #EBEBEB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.my-button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: red;
+}
+</style>
+
+<div style="width: 100%; display: flex; justify-content: center">
+<div class="my-container" onclick="alert('you won')">
+  <div class="my-button" onclick="alert('you lost')"></div>
+</div>
+</div>
+<hr>
+
+#### Capturing
+
+This isn't really covered, basically you can have events fire outside in but this isn't really useful for anything and is more of a legacy feature at this point.
+
+You can read more about it at [Bubbling And Capturing](https://javascript.info/bubbling-and-capturing) if you are curious.
