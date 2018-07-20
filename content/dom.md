@@ -170,24 +170,24 @@ The event object is hard to say anything about because what it contains depends 
 
 #### Other
 
-There are also some events that don't directly relate to a specific DOM node, such as a screen resize or a "loaded" event which fires once the dom tree has been loaded and rendered.
+There are also some events that don't directly relate to a specific DOM node, such as a screen resize or a "loaded" event which fires once the document has been fully loaded.
 
-These are declared in the same way but we bind our event handlers to the `window` which acts as a overarching anchor for our events.
+These are declared in the same way but we bind our event handlers to the `window` which acts as an overarching anchor for our events.
 
 ```js
 window.addEventListener("load", function(event) {
-  console.log("All resources finished loading!");
-});
+  console.log("All resources finished loading!")
+})
 window.addEventListener("resize", function() {
-    console.log("Screen was resized");
-});
+    console.log("Screen was resized")
+})
 ```
 
 A very common event used is a timeout event where a certain function is run after a certain amount of time
 
 ```js
 // print out hello after 3000ms (3 seconds)
-setTimeout(function(){ alert("Hello"); }, 3000);
+setTimeout(function(){ alert("Hello") }, 3000)
 ```
 
 JavaScript also lets you make your own custom events and state when you want them to fire but for now that's out of the scope.
@@ -201,9 +201,9 @@ Usually the keyword `this` refers to the object which owns the current function 
 When the function is in a object, this refers to the object itself. This is similar to how python implements `self` and java implements `this`
 
 ```js
-console.log(this); // window
+console.log(this) // window
 function f(){
-  console.log(this); // still window
+  console.log(this) // still window
 }
 
 let person = {
@@ -211,19 +211,20 @@ let person = {
     lastName : "Doe",
     id       : 5566,
     fullName : function() {
-        return this.firstName + " " + this.lastName;
+        return this.firstName + " " + this.lastName
     }
-};
+}
 ```
 
-This is all dandy but what's cool is that when a event is triggered, `this` is binded to the dom node on which the function is being triggered.
+This is all dandy but what's cool is that when a event is triggered, `this` is bound to the node on which the listener is attached.
 
-the following piece of code
+The following piece of code:
 
 ```html
 <div onclick="console.log(this)"></div>
 ```
-Would output the div dom node itself.
+Would output the div element itself in the console if
+clicked.
 
 ### Capturing An Event
 
@@ -257,17 +258,18 @@ By default js _almost_ always bubbles events from the most nested element to the
 
 There are some cases where the default action is different, for example on a focus event the event doesn't bubble. But almost always the event will bubble.
 
-Now of course this is default but like a lot of things in js we can override.
+Now of course this is default but like a lot of things in JavaScript we can override.
 
-```js
+```html
 <body onclick="alert(`the bubbling doesn't reach here`)">
   <button onclick="event.stopPropagation()">Click me</button>
 </body>
+
 ```
 
-we can stop specific event chains from bubbling by stopping it in it's tracks.
+We can stop specific event chains from bubbling by stopping it in it's tracks.
 
-Or we can be very specific in how we react to an event, `event.target` holds the inner most dom node that triggered the event so in your event handler you can reject to handle any events that are triggered by nested elements
+Or we can be very specific in how we react to an event, `event.target` holds the innermost DOM node that triggered the event so in your event handler you can reject to handle any events that are triggered by nested elements
 
 ```js
 function myHandler(event) {
@@ -275,6 +277,8 @@ function myHandler(event) {
   if (event.target != this) {
     return
   }
+
+  /* there are better ways to do this */
   ...
 }
 ```
@@ -295,9 +299,9 @@ false causes the default behaviour of only reacting to a bubbling event.
 
 ```js
 elem.addEventListener("click", function(){
-  console.log("I GET TRIGGERED FIRST DURING CAPTURE!");
-}), true);
+  console.log("I GET TRIGGERED FIRST DURING CAPTURE!")
+}), true)
 elem.addEventListener("click",function(){
-  console.log("I GET TRIGGERED AFTER DURING BUBBLE!");
-}));
+  console.log("I GET TRIGGERED AFTER DURING BUBBLE!")
+}))
 ```
