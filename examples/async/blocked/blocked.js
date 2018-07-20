@@ -1,7 +1,6 @@
 // register a event handler
 // to print the key pressed whenever
 // a key is pressed
-// **** WARNING this might cause ur browser to have a lil panic ****
 
 document.addEventListener('keypress', (event) => {
   const keyName = event.key

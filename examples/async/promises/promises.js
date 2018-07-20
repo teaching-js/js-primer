@@ -12,9 +12,30 @@ but is not the way js would run without promises.
 
 let time = {}
 
+function print(msg){
+  let text = document.createElement("h5")
+  text.appendChild(document.createTextNode(msg))
+  output.appendChild(text)
+}
+function printLight(msg,top){
+  let text = document.createElement("p")
+  text.className = "lead"
+  text.appendChild(document.createTextNode(msg))
+  if (top) {
+    output.prepend(text)
+  } else {
+    output.appendChild(text)
+  }
+
+}
+
+function clearOutput(){
+  document.getElementById("output").innerHTML = ""
+}
+
+
 function fastGet(){
-  let output = document.getElementById("output")
-  output.innerHTML = "loading..."
+  print("loading...")
   time.start = Date.now()
   // form a list of Promises
   // where we are getting serveral users
@@ -31,35 +52,34 @@ function fastGet(){
       for (let u of response) {
         u = u.json()
         u.then((user)=>{
-          output.innerHTML += "<h5>"+user.name+"</h5>"
+          print(user.name)
         })
       }
       time.end = Date.now()
       let delta = time.end - time.start
-      output.innerHTML += "<p class='lead'> took " + delta + " ms</p>"
+      printLight(delta+" ms")
     })
 }
 
 function slowGet(){
-  let output = document.getElementById("output")
-  output.innerHTML = "loading..."
+  print("loading...")
   time.start = Date.now()
 
   fetch("https://jsonplaceholder.typicode.com/users/1")
   .then((response)=>response.json())
-  .then((user)=>output.innerHTML = "<h5>"+user.name+"</h5>")
+  .then((user)=>{clearOutput();print(user.name)})
   .then(()=>{
     fetch("https://jsonplaceholder.typicode.com/users/2")
     .then((response)=>response.json())
-    .then((user)=>output.innerHTML += "<h5>"+user.name+"</h5>")
+    .then((user)=>print(user.name))
     .then(()=>{
       fetch("https://jsonplaceholder.typicode.com/users/3")
       .then((response)=>response.json())
       .then((user)=>{
-        output.innerHTML += "<h5>"+user.name+"</h5>"
+        print(user.name)
         time.end = Date.now()
         let delta = time.end - time.start
-        output.innerHTML = "<p class='lead'> took " + delta + " ms</p>" + output.innerHTML
+        printLight(delta+" ms",true)
       })
     })
   })
@@ -79,6 +99,8 @@ const delay = (ms) => new Promise((resolve, reject) => {
 })
 
 function waitAndLove(){
-  // wait 1 second then say i love you
+  // wait 1 second (so you don't seem desperate)
+  // then say i love you
+
   delay(1000).then(()=>alert("i love you"))
 }
