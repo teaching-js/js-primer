@@ -1,0 +1,24 @@
+{
+  "name": "2041-javascript",
+  "version": "1.0.0",
+  "description": "JavaScript course content for COMP2041, Software Construction",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha ./exercises/tests/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DarkPurple141/js-primer.git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "Alex Hinds <alex.hinds141@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DarkPurple141/js-primer/issues"
+  },
+  "homepage": "https://github.com/DarkPurple141/js-primer#readme",
+  "dependencies": {
+    "mocha": "^5.2.0"
+  }
+}
