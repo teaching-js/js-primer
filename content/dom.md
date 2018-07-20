@@ -81,7 +81,7 @@ network requests, you name it.
 
 Events are managed and processed by a single-threaded loop,
 which will run in your browser.. forever. We call this the
-Event Loop.
+_Event Loop._
 
 ### The Event Loop
 
@@ -103,13 +103,12 @@ The advantage of this is its simple to reason about; the obvious disadvantage is
 
 This means while the page is processing, it essentially freezes and no other fired events can be caught and processed.
 
-See example `blocked.js`.
+See `examples/blocked`.
 
 Not that I/O, including keyboard, touch and mouse events
 can take different lengths of time to be processed by the OS,
 before they reach the browser -- and in this time; JavaScript
-will simply move on to its next task. It will not wait for,
-for example a long network request to complete before it
+will simply move on to its next task. It will not wait for a long network request to complete for example, before it
 continues with other jobs. This helps performance but
 can create some confusion about the way in which our
 code is being executed. More on this when we properly
@@ -149,23 +148,23 @@ But you can also register event handlers directly in JavaScript code.
 document.getElementById("mybutton").onclick = function(event) { ... }
 ```
 
-Here what we have done is _binded_ an inline listener function to a event which is called whenever the particular event is fired. When the relevant is fired, in this case a `click`,
+Here what we have done is _binded_ an inline listener function to a event, which is called whenever the particular event is fired. When the relevant event is fired, in this case a `click`,
 our button (presumably an html element of some kind)
 will provide an `ClickEvent` object to the EventLoop,
 which will dealt with by our shiny new event handler.
 
 ```js
-// have to give it a name now so we can reference is
-// AND note the event parameter 'event'
 function myEventHandler(event) { ... }
-
-document.getElementById("mybutton").onclick = myEventHandler
 
 // generally preferred style
 document
    .getElementById("mybutton")
    .addEventListener('click', myEventHandler)
+
+// but this works too
+document.getElementById("mybutton").onclick = myEventHandler
 ```
+
 The event object is hard to say anything about because what it contains depends on the event. A key press event object holds information on what key was pressed, a click holds information on where the click happened etc. See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/Events) for more info.
 
 #### Other
@@ -175,19 +174,15 @@ There are also some events that don't directly relate to a specific DOM node, su
 These are declared in the same way but we bind our event handlers to the `window` which acts as a overarching anchor for our events.
 
 ```js
-window.addEventListener("load", function(event) {
-  console.log("All resources finished loading!");
-});
-window.addEventListener("resize", function() {
-    console.log("Screen was resized");
-});
+window.addEventListener("load", (event) => console.log("All resources finished loading!"))
+window.addEventListener("resize", (event) => console.log("Screen was resized"))
 ```
 
 A very common event used is a timeout event where a certain function is run after a certain amount of time
 
 ```js
 // print out hello after 3000ms (3 seconds)
-setTimeout(function(){ alert("Hello"); }, 3000);
+setTimeout(() => alert("Hello"), 3000)
 ```
 
 JavaScript also lets you make your own custom events and state when you want them to fire but for now that's out of the scope.
@@ -237,6 +232,14 @@ Take a look at the following piece of code
 </div>
 ```
 
+Here it is rendered
+
+<hr>
+<div onclick="alert('The handler!')">
+  <em>If you click on <code>EM</code>, the handler on <code>DIV</code> runs.</em>
+</div>
+<hr>
+
 If you click on the EM the event still happens. This makes sense, if you say that a event should fire on a div, then any click inside the div should fire a event.
 
 But consider the below
@@ -246,6 +249,11 @@ But consider the below
   <em>If you click on <code onclick="alert('The EM Handler!')">EM</code>, the handler on <code>DIV</code> runs.</em>
 </div>
 ```
+<hr>
+<div onclick="alert('The handler!')">
+  <em>If you click on <code onclick="alert('The EM Handler!')">EM</code>, the handler on <code>DIV</code> runs.</em>
+</div>
+<hr>
 
 What should happen? should the first event trigger, the outer one, both?
 
@@ -279,25 +287,45 @@ function myHandler(event) {
 }
 ```
 
+It's important to understand the mechanism by which js propergates a event through the dom so you can structure your event handlers to work in the way you want them to.
+
+A simple example is if you want to have a game where clicking on the red dot is how you lose and clicking anywhere else means you win.
+
+A approach like this ends up with weird behaviour.
+
+```HTML
+<div class="my-container" onclick="alert('you won')">
+  <div class="my-button" onclick="alert('you lost')">
+</div>
+```
+
+<hr>
+<style>
+.my-container {
+  width: 100px;
+  height: 100px;
+  background: #EBEBEB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.my-button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: red;
+}
+</style>
+
+<div style="width: 100%; display: flex; justify-content: center">
+<div class="my-container" onclick="alert('you won')">
+  <div class="my-button" onclick="alert('you lost')"></div>
+</div>
+</div>
+<hr>
+
 #### Capturing
 
-This is less useful but good to know. The event mechanisms actually unfolds in 2 steps.
+This isn't really covered, basically you can have events fire outside in but this isn't really useful for anything and is more of a legacy feature at this point.
 
-In the **capture** phase a event cascades from the window down until it hits the relevant node, triggers the target in the **target phase** and then in the **bubble** phase is goes back up triggering event handlers along the way.
-
-![bubble and capture](https://javascript.info/article/bubbling-and-capturing/eventflow@2x.png)
-_image from [bubbling and capturing](moodle.telt.unsw.edu.au/course/view.php?id=31318)_
-
-Usually the capturing phase is invisible, because it's so rarely used. But it can be used.
-
-there is a third argument to the function `addEventListener` which when set to true allows a event listened to be trigged during the capture phase rather then the bubble event.
-false causes the default behaviour of only reacting to a bubbling event.
-
-```js
-elem.addEventListener("click", function(){
-  console.log("I GET TRIGGERED FIRST DURING CAPTURE!");
-}), true);
-elem.addEventListener("click",function(){
-  console.log("I GET TRIGGERED AFTER DURING BUBBLE!");
-}));
-```
+You can read more about it at [Bubbling And Capturing](https://javascript.info/bubbling-and-capturing) if you are curious.

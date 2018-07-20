@@ -2,18 +2,16 @@
 
 JS was created to be the language that allowed for interactive web pages. It would allow developers to define how their page would react to things.
 
-At the core of this came a issue, the things the code would react to would be **asynchronous**, that is to say a user might click on something right now or in a second or in two hours, we don't know.
+At the core of this came a issue, the things the code would react to would be **asynchronous**, that is to say a user might click on something right now or in a second or in two hours, we don't know. And furthermore we don't know what order in which a user will do things. What will they click on first, what will they type?
 
 As a result JS evolved various constructs to allow users to write code that only ran when triggered by a certain event.
 We touched on some of this with the DOM, and how it handles
 Events propagating in the browser, but we'll need to go
-deeper to talk about I/O more broadly, and asynchronous
-JavaScript.
-
-Lets start by looking at Events
-
+deeper to talk about I/O more broadly, and asynchronous JavaScript.
 
 ## Resource interactions
+
+A good place to start is with how js evolved to handle resource interactions.
 
 Back when we had Ye Oldè Internets every time you needed more data from a server you would have to reload the entire page or redirect to a new page.
 
@@ -29,7 +27,7 @@ Here is the issue, IO is slow, really slow, sometimes a request can take up to a
 
 You can't wait for a server to get back to you after a request because while you are waiting, no other JavaScript can run, and your page stops reacting to events.
 
-So with I/O we developed a toolset.
+So with I/O we developed a asynchronous toolset where we didn't ping a server and wait for a response, we rather developed our code such that the pinging of the server and getting a response were distinct events that happened independently of each other.
 
 ### Basic XHR
 
@@ -48,8 +46,8 @@ function callback(data){
 }
 
 
-var oReq = new XMLHttpRequest();
-oReq.addEventListener("load", callback);
+let oReq = new XMLHttpRequest()
+oReq.addEventListener("load", callback)
 
 // these lines return super quickly even though
 // the server hasn't responded. They don't wait.
@@ -76,13 +74,60 @@ simply when our bright and shiny `example.txt` is delivered.
 seconds  0 1 2 3 4 5 6 7 8 9
 ```
 
+This is obviously super good for speed but it is confusing to get your head around.
+
+When you are writing code it's natural to think out your logic top down like this.
+
+```js
+let name = get_name();
+document.getElementById("name").value = name
+```
+but if get_name makes a network call you can't do that, you'd have to do
+
+```js
+function callback(name) {
+  document.getElementById("name").value = name;
+}
+
+get_name(callback);
+```
+
+which works but we run into the issue that any lines of code we right _after_ `get_name` can not assume that we have gotten name already, even though we called the function.
+
+```js
+function callback(name) {
+  document.getElementById("name").value = name;
+}
+document.getElementById("name").value = "lol";
+get_name(callback);
+// will print out 'lol' because the callback hasn't  
+// been called yet and we don't know when it will
+// be called.
+console.log(document.getElementById("name").value);
+```
+
+So if you want to do serveral things that are async in order you have to nest callback functions
+
+```js
+do_step_1(()=>{
+  step_1_logic()
+  do_step_2(()=>{
+    step_2_logic()
+    do_step_3(()=>{
+      step_3_logic()
+    })
+  })
+})
+```
+
+look ugly? that's because it is. This is why various things popped up to try and mitigate this.
+Thus we are now gonna jump forward in time to the present where we don't do this callback nesting anymore. We use promises.
+
 ### Promises
 
 #### Intro
 
-The above worked but got unwieldy once websites relied more and more on these types of resource calls. The problem was,
-with callback based async programming we could often tied with
-more complex tasks we could often get stuck deep in what was called 'callback hell'; that is callbacks waiting for callbacks, waiting for callbacks.
+The problem was, as you can tell, with callback based async programming we could often get stuck deep in what was called 'callback hell' for complex problems. Callbacks waiting for callbacks, waiting for callbacks.
 
 As of ES5+ JavaScript has provided a better way to
 synchronize our funciton calls; and this is `Promises`.
@@ -95,14 +140,14 @@ Consider the following:
 
 ```js
 function successCallback(result) {
-  console.log("Audio file ready at URL: " + result);
+  console.log("Audio file ready at URL: " + result)
 }
 
 function failureCallback(error) {
-  console.log("Error generating audio file: " + error);
+  console.log("Error generating audio file: " + error)
 }
 
-createAudioFileAsync(audioSettings, successCallback, failureCallback);
+createAudioFileAsync(audioSettings, successCallback, failureCallback)
 ```
 
 This is how we used to do things, if you wanted to create an async function you'd define your own interface and take in callback functions.
@@ -110,7 +155,7 @@ This is how we used to do things, if you wanted to create an async function you'
 But if instead `createAudioFileAsync` returned a `Promise` object you could do this.
 
 ```js
-createAudioFileAsync(audioSettings).then(successCallback, failureCallback);
+createAudioFileAsync(audioSettings).then(successCallback, failureCallback)
 ```
 
 The promise object will be notified when the audio file is done and it can then refer to the success and failure functions the user specified.
@@ -122,15 +167,10 @@ The createAudioFileAsync function returns a promise object which has a function 
 The powerful thing about this is that the `then` function is that it returns a `Promise`. Thus they can be chained so we can have various steps of a procedure happen in sequential order.
 
 ```js
-doSomething().then(function(result) {
-  return doSomethingElse(result);
-})
-.then(function(newResult) {
-  return doThirdThing(newResult);
-})
-.then(function(finalResult) {
-  console.log('Got the final result: ' + finalResult);
-})
+doSomething().then(result => doSomethingElse(result))
+.then(newResult => doThirdThing(newResult))
+.then(finalResult => console.log('Got the final result!'))
+
 ```
 
 #### Failures
@@ -140,31 +180,21 @@ Note that in these `then`'s we don't state a failure callback, which is bad, we 
 We can use this
 
 ```js
-doSomething().then(function(result) {
-  return doSomethingElse(result);
-})
-.then(function(newResult) {
-  return doThirdThing(newResult);
-})
-.then(function(finalResult) {
-  console.log('Got the final result: ' + finalResult);
-})
-.then(null,failureCallback);
+doSomething()
+.then(result => doSomethingElse(result))
+.then(newResult => return doThirdThing(newResult))
+.then(finalResult => console.log('Got the final result!'))
+.then(null,failureCallback)
 ```
 
 or we can use the shorthand
 
 ```js
-doSomething().then(function(result) {
-  return doSomethingElse(result);
-})
-.then(function(newResult) {
-  return doThirdThing(newResult);
-})
-.then(function(finalResult) {
-  console.log('Got the final result: ' + finalResult);
-})
-.catch(failureCallback);
+doSomething()
+.then(result => doSomethingElse(result))
+.then(newResult => return doThirdThing(newResult))
+.then(finalResult => console.log('Got the final result!'))
+.catch(failureCallback)
 ```
 
 To catch a failure on the whole chain rather then defining a failure for reach individual step.
@@ -174,17 +204,12 @@ Note that how this works is that if one step fails it notifies the next promise 
 Of course it's possible to chain after a failure if you wish to do some cleanup regardless if a failure occurred or not.
 
 ```js
-myPromise.then(function() {
-    // simulate failure
-    throw new Error('Something failed');
-})
-.catch(function() {
-    // handle failure
-    console.log('Do that');
-})
-.then(function() {
-    console.log('Do this, no matter what happened before');
-});
+// simulate failure
+myPromise.then(() => throw new Error('Something failed'))
+// handle failure
+.catch(() => console.log('Do that'))
+// do cleanup
+.then(() => console.log('Do this, no matter what happened before'))
 ```
 
 #### Creating Promises
@@ -196,8 +221,7 @@ All we need to do is specify two things, how to resolve and how to reject.
 i.e in your async code you need to either call the resolve function signalling you are done with the data you got or call the reject function because something went wrong
 
 ```js
-const myFirstPromise = new Promise(
-  function(resolve, reject) {
+const myFirstPromise = new Promise((resolve, reject) => {
   // do something asynchronous which eventually calls either:
   //   resolve(someValue); // fulfilled
   // or
@@ -207,16 +231,12 @@ const myFirstPromise = new Promise(
 
 #### Uses Of Promises
 
-So one of the thing js introduced recently is the `fetch` function which does all the annoying XHR stuff above for us and just returns a simple promise
+So one of the things js introduced recently is the `fetch` function which does all the annoying XHR stuff above for us and just returns a simple promise
 
 ```js
 fetch('http://example.com/movies.json')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson) {
-    console.log(myJson);
-  });
+  .then((response) => response.json())
+  .then((myJson) => console.log(myJson))
 ```
 
 The other thing promises are very useful for is when you want to do a bunch of things in tandem.
@@ -226,9 +246,7 @@ The other thing promises are very useful for is when you want to do a bunch of t
 // and returns a parent promise which will
 // resolve only if all it's children Resolved
 // and reject otherwise.
-Promise.all([promise1, promise2, promise3]).then(function(values) {
-  console.log("DONE!");
-});
+Promise.all([promise1, promise2, promise3]).then((values) =>console.log("DONE!"))
 ```
 
 The cool thing about `Promise.all()` is that it lets you run several things at once and keep track of all rather then running them one at a time.
@@ -240,9 +258,7 @@ Of course sometimes you don't want _all_ you just want _one_. A example is if yo
 // will return a promise that resolves or
 // rejects as soon as one of it's children
 // resolves or rejects
-Promise.race([ebay, gumtree, wish]).then(function(values) {
-  console.log(values);
-});
+Promise.race([ebay, gumtree, wish]).then((values) => console.log(values))
 ```
 
 ## AJAX
@@ -261,7 +277,7 @@ Basically rather then the server sending the html which renders into your newsfe
 
 The rendering and data are separated.
 
-![lol](https://derivadow.files.wordpress.com/2007/01/ajax.png?w=506&h=309)
+![ajax web model](https://derivadow.files.wordpress.com/2007/01/ajax.png?w=506&h=309)
 
 Various libraries try and help reach this model, notably react, vue, angular js, jquery etc. all make it easier for js to render the webpage client side reacting to data from the server.
 
