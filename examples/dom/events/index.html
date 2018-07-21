@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Render a basic list</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css" type="text/css">
+      <link rel="stylesheet" href="../../basic.css"/>
+   </head>
+   <body>
+      <main role="main" id="main">
+         <h1>Basic Events Example</h1>
+         <h2>Click things to see the DOM react to the click event.</h2>
+         <pre>
+<code>
+const out = document.getElementById('output')
+window.addEventListener('click', clicker)
+
+function clicker(event) {
+   out.innerText = "Clicked " + event.target.innerText
+}
+</code>
+         </pre>
+         <br>
+         <div id="output"></div>
+      </main>
+      <script src="list.js"></script>
+      <script src="events.js"></script>
+   </body>
+</html>
