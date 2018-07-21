@@ -6,7 +6,7 @@ html, body {
    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-#main {
+main {
    width: 80%;
    margin: 50px auto;
 }
