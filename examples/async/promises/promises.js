@@ -25,6 +25,7 @@ function init() {
    }
 
    function togetherGet() {
+     Library.clearOutput()
      Library.print("loading...")
      time.start = Date.now()
      // form a list of Promises
@@ -33,29 +34,23 @@ function init() {
      // run them all at the same time
      // and once all are done, display them
      Promise.all(listOfPromises)
-       .then(users => {
-          Library.clearOutput()
-          return users
-       })
        .then(users => users.map(user => Library.print(user.name)))
        .then(finishRequestTiming)
    }
 
    function synchronousGet(){
+     Library.clearOutput()
+     Library.print("loading...")
      time.start = Date.now()
 
      // this is going to take longer as we're
      // going to process one request at a time.
-     let index = 0
-
-     Library.getJSON(requestURIs[index++])
-      .then(user => Library.print(user.name))
-      .then(() => Library.getJSON(requestURIs[index++]))
-      .then(user => Library.print(user.name))
-      .then(() => Library.getJSON(requestURIs[index++]))
-      .then(user => Library.print(user.name))
-      .then(finishRequestTiming)
-
+     requestURIs.reduce((requests, uri) =>
+         requests
+         .then(() => Library.getJSON(uri))
+         .then(user => Library.print(user.name))
+     , Promise.resolve(null))
+     .then(finishRequestTiming)
    }
 
    // Promise constructor
