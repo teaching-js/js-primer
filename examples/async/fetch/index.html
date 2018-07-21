@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Fetch</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-okaidia.min.css">
     <link rel="stylesheet" href="../../basic.css" type="text/css">
   </head>
   <body>
@@ -12,9 +13,7 @@
        <h1>Fetch Example</h1>
        <h2>Press the button to execute a request to a server for some users!</h2>
        <br><br>
-       <pre>
-<code>
-/* AJAX example */
+       <pre><code class="language-js">/* AJAX example */
 const API_URL = "https://jsonplaceholder.typicode.com/"
 
 /* Assuming a browser context */
@@ -26,11 +25,14 @@ Library.getJSON(API_URL + 'users')
    })
    .then(data => data.map(user => Library.print(user.name)))
 </code>
-       </pre>
+</pre>
        <button id="button" class="btn btn-primary"> Get Some Data! </button>
        <br><br><br>
        <div id="output"></div>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-core.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-clike.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-javascript.min.js" charset="utf-8"></script>
     <script src="../../lib.js"></script>
     <script src="fetch.js"></script>
   </body>
