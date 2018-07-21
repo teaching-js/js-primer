@@ -6,7 +6,14 @@ html, body {
    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-#main {
+main {
    width: 80%;
    margin: 50px auto;
+}
+
+#output {
+  border: 2px #EBEBEB solid;
+  border-radius: 25px;
+  min-height: 100px;
+  padding: 2rem;
 }
