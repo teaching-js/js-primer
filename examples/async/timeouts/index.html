@@ -7,12 +7,24 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../../basic.css" type="text/css">
   </head>
-  <body style="text-align: center;">
+  <body>
     <main>
-      <h1> Click below to run the main() function. What will it show? </h1>
-      <br><br>
+      <h1>The Event Loop</h1>
+      <h2> Click below to run the main() function. What will it show? </h2>
+      <br>
+      <pre>
+         <code>
+function main() {
+   print("Hello")
+   setTimeout(() => {
+      print("World")
+   }, 0)
+   print("End")
+}</code>
+      </pre>
+      <br>
       <div style="width: 100%; display: flex; justify-content: space-around">
-        <button id="button" class="btn btn-primary"> run main </button>
+        <button id="button" class="btn btn-primary"> Run main() </button>
       </div>
       <br><br><br>
       <div id="output"></div>

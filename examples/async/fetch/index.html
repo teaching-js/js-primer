@@ -7,10 +7,32 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../../basic.css" type="text/css">
   </head>
-  <body style="text-align: center;">
+  <body>
     <main>
-       <h1>Press the button to execute a request to a server for some users!</h1>
+       <h1>Fetch Example</h1>
+       <h2>Press the button to execute a request to a server for some users!</h2>
        <br><br>
+       <pre>
+          <code>
+function getUsers() {
+   // let the user know we are loading
+   Library.print("loading...")
+
+   /* AJAX example */
+   const API_URL = "https://jsonplaceholder.typicode.com/"
+
+   /* Assuming a browser context */
+   Library.getJSON(API_URL + 'users')
+      // chain the promise and translate the response
+      // object in json to a js object
+      .then(data => {
+         // remove loading message
+         Library.clearOutput()
+         return data
+      })
+      .then(data => data.map(user => Library.print(user.name)))
+}</code>
+       </pre>
        <button id="button" class="btn btn-primary"> Get Some Data! </button>
        <br><br><br>
        <div id="output"></div>

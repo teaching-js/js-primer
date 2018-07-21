@@ -7,8 +7,22 @@ html, body {
 }
 
 main {
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   max-width: 800px;
    width: 80%;
    margin: 50px auto;
+}
+
+pre, code {
+   font-size: 1.5em;
+   text-align: left;
+}
+
+button.btn {
+   font-size: 1.5em;
+   border-radius: 0.5em;
 }
 
 #output {
@@ -16,4 +30,10 @@ main {
   border-radius: 25px;
   min-height: 100px;
   padding: 2rem;
+}
+
+@media screen and (max-width: 700px) {
+   html, body {
+      font-size: 8px;
+   }
 }
