@@ -103,7 +103,7 @@ The advantage of this is its simple to reason about; the obvious disadvantage is
 
 This means while the page is processing, it essentially freezes and no other fired events can be caught and processed.
 
-See `examples/blocked`.
+See `examples/async/blocked`.
 
 Not that I/O, including keyboard, touch and mouse events
 can take different lengths of time to be processed by the OS,
