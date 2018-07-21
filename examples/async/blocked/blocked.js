@@ -9,7 +9,8 @@ function init() {
       event.preventDefault()
       const keyName    = event.key
       const output     = document.getElementById("output")
-      output.innerText += keyName
+      if (keyName.length == 1)
+        output.appendChild(document.createTextNode(keyName))
    })
 
    const button = document
