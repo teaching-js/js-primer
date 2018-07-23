@@ -20,6 +20,11 @@ pre, code {
    text-align: left;
 }
 
+h2 {
+   color: #555;
+}
+
+/* To override some of the styles of bootstrap */
 button.btn {
    font-size: 1.5em;
    border-radius: 0.5em;
