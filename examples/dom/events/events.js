@@ -1,5 +1,4 @@
 
-
 function init() {
 
    const out = document.getElementById('output')

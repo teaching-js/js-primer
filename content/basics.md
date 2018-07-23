@@ -78,7 +78,7 @@ There are a number of ways to declare scripts in the browser.
       <!-- This also would work, for the local file filename.js -->
       <script src="filename.js"></script>
 
-      <!-- We could also get a script from a CDN -->
+      <!-- We could also get a script from a an external source -->
       <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
    </body>
@@ -86,7 +86,7 @@ There are a number of ways to declare scripts in the browser.
 ```
 
 Something to note; JavaScript will execute as soon as it's parsed -- this
-may not be what is desired. Usually it isn't, particularly for scripts that
+may not be what is desired. Usually it isn't -- particularly for scripts that
 need to interact with the DOM. We'll talk about managing this when we talk more
 about the DOM.
 
@@ -110,11 +110,11 @@ The `let` prefix is slightly more flexible in that it can be reassigned, and sho
 The use of `var` no longer makes sense in modern JavaScript, it's like `let` in that it can be reassigned,
 but is also 'hoisted' to the top of the current code block.
 
-Given this is a common source of bugs, and given it offers no real advantage over `let`, I'd suggest you just use `let`.
+Given this is a common source of bugs, and given it offers no real advantage over `let`, you should just use `let`.
 
 ```js
 const myVar      = 10  
-let   myOtherVar = "Alex"
+let   myOtherVar = "Dog"
 var   myVarVar   = []
 ```
 

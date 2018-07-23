@@ -19,8 +19,8 @@ on the API of the DOM Objects if you're ever likely to do any sort of real web d
 The following with reference to: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction).
 
 Element | Description
------|----
-`document` |	The DOM document Reference chapter describes the document object.
+:-----|:----
+`document` | The DOM document Reference chapter describes the document object.
 `element`	|  `element` refers to an element or a node of type element returned by a member of the `DOM API`. Rather than saying, for example, that the `document.createElement()` method returns an object reference to a node, we just say that this method returns the element that has just been created in the DOM. `element` objects implement the `DOM Element` interface and also the more basic `Node` interface, both of which are included together in this reference.
 `nodeList`	| A `nodeList` is an array of elements, like the kind that is returned by the method `document.getElementsByTagName()`.
 `namedNodeMap` |	A `namedNodeMap` is like an array, but the items are accessed by name or index, though this latter case is merely a convenience for enumeration, as they are in no particular order in the list.
@@ -116,12 +116,9 @@ discuss `async`.
 
 ### More on Events
 
-#### Intro
-
 OK so cool JavaScript gives us the ability to write code that gets run on a certain event asynchronously! but how do we actually do that?
 
-The internal JavaScript event loop is constantly capturing events but it needs to know what to do with an event firing,
-or even whether to ignore it completely.
+The internal JavaScript event loop is constantly capturing events but it needs to know what to do with an event firing, or even whether to ignore it completely.
 
 In the DOM, we manage this with `listeners`.
 
@@ -142,7 +139,7 @@ These bind directly to a `DOM Node`, that is to say, a event only fires if the c
 <div onclick="myFunction()"></div>
 ```
 
-But you can also register event handlers directly in JavaScript code.
+But you can also register event handlers directly in JavaScript code. In practice this is preferred.
 
 ```js
 // generally preferred style
@@ -154,8 +151,10 @@ document
 document.getElementById("mybutton").onclick = function(event) {}
 ```
 
-Here what we have done is _binded_ an inline listener function to a event, which is called whenever the particular event is fired. When the relevant event is fired, in this case a `click`,
-our button (presumably an html element of some kind)
+Here what we have done is _bound_ an inline listener function to a DOM Node and an event -- the
+listener is then called whenever the particular event is fired.
+
+In this case, when a `click` occurs, our button (presumably an html element of some kind)
 will provide an `ClickEvent` object to the EventLoop,
 which will dealt with by our shiny new event handler.
 
@@ -171,7 +170,7 @@ document
 document.getElementById("mybutton").onclick = myEventHandler
 ```
 
-The event object is hard to say anything about because what it contains depends on the event. A key press event object holds information on what key was pressed, a click holds information on where the click happened etc. See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/Events) for more info.
+The event object is hard to say anything about because what it contains depends on the event. A KeyPress event object holds information on what key was pressed, a click holds information on where the click happened etc. See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/Events) for more info.
 
 #### Other
 
