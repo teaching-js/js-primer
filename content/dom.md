@@ -1,27 +1,30 @@
 # What the DOM?
 
-The Document Object Model or colloquially (DOM) provides the interface that allows
-JavaScript to interact with XML, SVG and HTML through the browser.
+The Document Object Model or colloquially (`DOM`) provides the interface that allows
+JavaScript to interact with XML, SVG and HTML through the browser. Without the `DOM` API we'd be unable to
+manipulate our web pages with JavaScript.
 
 ## The DOM APIs
 
-We call the webpage a Document, and the DOM allows the Document to be broken up into
-a manipulatable tree-like structure that allows more complex usage and editing
- of an otherwise static page. In this sense, JavaScript, aided by the DOM brings a webpage to life.
+Why `DOM`? We call the webpage a "Document", and the `DOM` API allows this Document to be broken up into
+a manipulatable tree-like "Object" structure that allows more complex usage and editing by our scripts. It's a "Model" in that it holds and manages Document State through a well-defined API.
 
 ## DataTypes
 
-There is nothing special about the way these `DOM Objects` work, they are, at their
+The DOM offers a number of unique datatypes that don't
+exist natively in JavaScript.
+
+There is nothing special about the way these `DOM` DataTypes work, they are, at their
 heart `Objects` in a JavaScript sense and observe all the same conventions. Still,
 as with the vanilla `Array`, `Function`, `String` ... it's worth getting a handle
-on the API of the DOM Objects if you're ever likely to do any sort of real web development.
+on the API of the `DOM` DataTypes if you're ever likely to do any sort of real web development.
 
 The following with reference to: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction).
 
 Element | Description
 :-----|:----
 `document` | The DOM document Reference chapter describes the document object.
-`element`	|  `element` refers to an element or a node of type element returned by a member of the `DOM API`. Rather than saying, for example, that the `document.createElement()` method returns an object reference to a node, we just say that this method returns the element that has just been created in the DOM. `element` objects implement the `DOM Element` interface and also the more basic `Node` interface, both of which are included together in this reference.
+`element`	|  `element` refers to an element or a node of type element returned by a member of the `DOM` API. Rather than saying, for example, that the `document.createElement()` method returns an object reference to a node, we just say that this method returns the element that has just been created in the `DOM`. These objects implement a specific interface methods that allows complex interactions with the Document.
 `nodeList`	| A `nodeList` is an array of elements, like the kind that is returned by the method `document.getElementsByTagName()`.
 `namedNodeMap` |	A `namedNodeMap` is like an array, but the items are accessed by name or index, though this latter case is merely a convenience for enumeration, as they are in no particular order in the list.
 
@@ -76,16 +79,16 @@ window.addEventListener(eventType, handler)
 
 ## Events and the Event Loop
 
-An `Event` is a blanket term for anything that JavaScript can react to, a screen resize, a click, a drag, a key smash, touch,
-network requests, you name it.
+The DOM uses events to manage user interaction. An `Event` is a blanket term for anything that JavaScript
+can react to, a screen resize, a click, a drag, a key smash, touch, network requests, you name it.
 
 Events are managed and processed by a single-threaded loop,
 which will run in your browser.. forever. We call this the
-_Event Loop._
+_Event Loop_.
 
 ### The Event Loop
 
-This is at its core quite simple, in JavaScript is something like the following.
+The Event Loop is at its core quite simple, in JavaScript is something like the following.
 
 ```js
 while (queue.waitForMessage()) {
@@ -95,7 +98,7 @@ while (queue.waitForMessage()) {
 
 Every time a event is triggered, let it be a click, a key press, or a mouse move, a event is added to the queue.
 
-Unlike a lot of more complex concurrency models, JavaScript uses a `Run-to-completion` model. This means that while code is handling one event, another event will not be handled.
+Unlike more complex concurrency models, JavaScript uses a `Run-to-completion` model. This means that while code is handling one event, another event will not be handled.
 
 Again this is a result of its single-threaded nature. Events can be added to the queue but only processed one at a time.
 
@@ -103,12 +106,14 @@ The advantage of this is its simple to reason about; the obvious disadvantage is
 
 This means while the page is processing, it essentially freezes and no other fired events can be caught and processed.
 
-See `examples/async/blocked`.
+See [`examples/async/blocked`](/examples/async/blocked).
 
-Not that I/O, including keyboard, touch and mouse events
+Note that I/O, including keyboard, touch and mouse events
 can take different lengths of time to be processed by the OS,
 before they reach the browser -- and in this time; JavaScript
-will simply move on to its next task. It will not wait for a long network request to complete for example, before it
+will simply move on to its next task.
+
+It will not wait for a long network request to complete for example, before it
 continues with other jobs. This helps performance but
 can create some confusion about the way in which our
 code is being executed. More on this when we properly
@@ -126,7 +131,9 @@ In the DOM, we manage this with `listeners`.
 
 You can do this directly in `HTML` with a variety of tags such as `onclick`, `onhover`, `onblur` etc. read about them on the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/Events).
 
-These bind directly to a `DOM Node`, that is to say, a event only fires if the click happened on the object on the screen. (more on how this works this further down)
+These bind directly to a `DOM Node`; that is
+they will only react and admit an event if the user interacts
+with the specific node that was interacted with; and its children.
 
 ```html
 <script>
@@ -139,7 +146,7 @@ These bind directly to a `DOM Node`, that is to say, a event only fires if the c
 <div onclick="myFunction()"></div>
 ```
 
-But you can also register event handlers directly in JavaScript code. In practice this is preferred.
+A better way to attach event handlers is in JavaScript code. In practice this is preferred.
 
 ```js
 // generally preferred style
