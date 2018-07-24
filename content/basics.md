@@ -23,7 +23,7 @@ foundation. For the basics however, these differences aren't really worth dwelli
 ## Usage
 
 Most commonly we use JavaScript in web browsers for client-side script execution,
-but it's become increasingly popular as a server side language through `node.js`.
+but it's also become increasingly popular as a server side language through `node.js`.
 JavaScript is even used to develop and build native applications for desktop and
 mobile.
 
@@ -56,11 +56,11 @@ Without JavaScript we can only update a page's state by re-requesting the page f
 server.
 JavaScript allows us to have features that are common-place in native applications in the browser.
 
-\*Not strictly true.
+\*Not strictly true (see WebAssembly, various transpilers, applets).
 
 ## In the browser
 
-There are a number of ways to declare scripts in the browser.
+There are a number of ways to declare scripts in the browser. More on that [here](quickstart).
 
 ```html
 <!DOCTYPE html>
@@ -85,9 +85,11 @@ There are a number of ways to declare scripts in the browser.
 </html>
 ```
 
-Something to note; JavaScript will execute as soon as it's parsed -- this
+Something to note; JavaScript will execute as soon as it's parsed by the browser -- this
 may not be what is desired. Usually it isn't -- particularly for scripts that
-need to interact with the DOM. We'll talk about managing this when we talk more
+need to interact with the DOM, or scripts that require other scripts to first load before they execute.
+
+We'll talk about managing this when we talk more
 about the DOM.
 
 ## Grammar
@@ -107,15 +109,15 @@ in the program.
 
 The `let` prefix is slightly more flexible in that it can be reassigned, and should be used when `const` cannot.
 
-The use of `var` no longer makes sense in modern JavaScript, it's like `let` in that it can be reassigned,
+The use of `var` no longer makes sense in modern JavaScript; it's like `let` in that it can be reassigned,
 but is also 'hoisted' to the top of the current code block.
 
-Given this is a common source of bugs, and given it offers no real advantage over `let`, you should just use `let`.
+Given this is a common source of bugs, and given it offers no real advantage over `let`, you should really always use `let`.
 
 ```js
 const myVar      = 10  
 let   myOtherVar = "Dog"
-var   myVarVar   = []
+var   myVarVar   = [] // should be let
 ```
 
 ### Operators
@@ -156,7 +158,7 @@ While types are dynamic they do exist under the hood, and the JS engine will com
 JavaScript has seven primitive types:
 
 * boolean (true, false)
-* undefined (a declared variable with no value set -- don't confuse with null)
+* undefined (a declared variable with no value set -- don't confuse with null -- or an unset key)
 * number (float, integer, signed by default)
 * string
 * null (a declared variable with the value set to null)
@@ -271,13 +273,44 @@ Our new Person object will have access to the methods in the prototype, and
 magically, the binding of this has already been bound properly to the object we
 want.
 
+#### Avoiding `new` altogether
+
+Modern JavaScript has tried to move away from needing to
+use `new` by replacing constructors, with factory patterns
+which return an instance of an object. This can often
+be a cleaner way to construct objects in a more
+functional way and can avoid dealing with `this`.
+
+An example:
+
+```js
+// this function has the added benefit
+// of hiding our properties from direct manipulation.
+// through what's called a closure -> discussed later.
+function PersonFactory(firstName, lastName, age) {
+
+   return {
+      getFullName () {
+         return firstName + " " + lastName
+      },
+
+      canDrinkAlcohol() {
+         return age >= 18
+      }
+   }
+}
+
+// which we'd call like
+const jeff = PersonFactory("Jeff", "Goldblum", 50)
+```
+
 ## Scope, Control Flow, Loops and Iteration
 
 ### Scope
 
-JavaScript uses a combination of *lexical* scope
+JavaScript uses a combination of *lexical*
 (blocks { } and up the page seperate scope),
-*hoisting* and *closures*.
+*hoisting* and *closures* to manage scope.
 
 #### Hoisting
 Hoisting is a 'feature' of JavaScript that pushes
@@ -290,7 +323,7 @@ Essentially:
 
 ```js
 // function is called 'before' it's declared (valid)
-myFunction()
+myFunction() // will output Hi Andrew
 
 function myFunction() {
    // name refers to the var name via hoisting
