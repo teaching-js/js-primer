@@ -4,3 +4,5 @@
 function hello(name) {
    // ur code here.
 }
+
+module.exports = hello
