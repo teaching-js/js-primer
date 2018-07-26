@@ -117,7 +117,7 @@ Given this is a common source of bugs, and given it offers no real advantage ove
 ```js
 const myVar      = 10  
 let   myOtherVar = "Dog"
-var   myVarVar   = [] // should be let
+var   myVarVar   = [] // should be let or const
 ```
 
 ### Operators

@@ -8,12 +8,18 @@ an overview of some of the more common ones and how you can use them.
 ### Push `.push(item)`
 Add to the end of the Array (append). Will affect underlying array.
 
+### Unshift `.unshift(item)`
+Add to the front of the Array (append). Will affect underlying array.
+
 ### Pop `.pop(item)`
 Grab the last item. Will affect underlying array.
 
+### Shift `.shift(item)`
+Remove from the front of the Array. Will affect underlying array.
+
 ### Filter `.filter(fn)`
 Filters the array and returns a new array filtered by the
-function passed in. Function should return true or false.
+callback function passed in. Callback should return true or false.
 
 ```js
 
@@ -59,6 +65,30 @@ const sum = array.reduce((sum, current) => sum + current, 0) // 1+2+3+4
 ### Join `.join(delimiter)`
 As advertised. Returns a String.
 
+### Tips
+
+Most (many) Array methods allow for chaining, because they return
+an Array. This is something you should take advantage of to write
+more 'declarative' functional code.
+
+Some more advanced syntax to keep in mind includes the spread
+`...` syntax which implicitly turns an array into its component parts,
+and the destructing syntax (very similar to Objects) which allows
+you to quickly and easily select elements in an array. eg.
+
+```js
+// spread
+const list = [10, 12, 13]
+const [..., a, b] = list
+// a == 12, b == 13
+
+// alternatively in a function.
+function spread(a, b, c) {}
+spread(...list) {
+   // a, b, c now set appropately
+}
+```
+
 ## String
 
 ### Split `.split(delimiter)`
@@ -94,14 +124,19 @@ However... (as of ES6)
 ```js
 // we now have arrow functions.
 // The arrow is shorthand for return.
+// it's good practice to include parenthesis around args,
+// but for single arguments, you don't need to.
 const returns10 = () => 10
 const greet = name => "Hello " + name
+
+// fr the example above we get the much nicer
+array.map(item => item + 1)
 
 // But arrow functions also have one special property!
 // they bind not to the enclosing object, but the surrounding context.
 // This is important in areas where you may normally have had to 'bind' a fn.
 element.addEventListener('click', handler.fn.bind(handler))
-// vs.
+// vs. (FIXME This example could probs be better)
 element.addEventListener('click', () => handler.fn()) // yay!
 ```
 
