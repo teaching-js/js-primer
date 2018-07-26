@@ -8,14 +8,14 @@ an overview of some of the more common ones and how you can use them.
 ### Push `.push(item)`
 Add to the end of the Array (append). Will affect underlying array.
 
-### Unshift `.unshift(item)`
-Add to the front of the Array (append). Will affect underlying array.
-
 ### Pop `.pop(item)`
 Grab the last item. Will affect underlying array.
 
 ### Shift `.shift(item)`
 Remove from the front of the Array. Will affect underlying array.
+
+### Unshift `.unshift(item)`
+Add to the front of the Array (append). Will affect underlying array.
 
 ### Filter `.filter(fn)`
 Filters the array and returns a new array filtered by the
