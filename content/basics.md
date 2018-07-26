@@ -430,7 +430,7 @@ The `c-style` loop:
 for (let index = 0; index < array.length; index++) {
    // do something with item
    // very similar to c
-   let value = array[property]
+   let value = array[index]
 }
 ```
 
