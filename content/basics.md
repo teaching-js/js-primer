@@ -95,12 +95,12 @@ about the DOM.
 ## Grammar
 
 ### Variable Declaration
-JavaScript is a dynamically typed language so we need not explicitly state our types before variables as we might in C.
+JavaScript is a **dynamically** typed language so we need not explicitly state our types before variables as we might in C.
 
-Variables must ([src](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types)):
+Variables must: ([src](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types))
 > ...start with a letter, underscore (\_), or dollar sign ($); subsequent characters can also be digits (0-9). Because JavaScript is case sensitive, letters include the characters "A" through "Z" (uppercase) and the characters "a" through "z" (lowercase).
 
-Variables also must be declared with one four prefixes;
+..And be declared with one of four prefixes,
 `const`, `let`, `var`, and prefix-less (global).
 
 The `const` prefix should be used almost always, and
@@ -115,7 +115,7 @@ but is also 'hoisted' to the top of the current code block.
 Given this is a common source of bugs, and given it offers no real advantage over `let`, you should really always use `let`.
 
 ```js
-const myVar      = 10  
+const myVar      = 10
 let   myOtherVar = "Dog"
 var   myVarVar   = [] // should be let or const
 ```
@@ -377,24 +377,24 @@ Variables that drop out of scope or are no longer reachable
 JavaScript is very c-like in its control-flow.
 
 ```js
-if (cond) {
+if (condition) {
    // do something
 }
 
-if (cond) {
+if (condition) {
    // do something
 } else {
    // do something
 }
 
 // as with c, one liners don't require brackets.
-if (cond)
-   // do soemthing
+if (condition)
+   // do something
 else
    // something else
 
 // And of course ternary
-const x = cond ? 22 : 0
+const x = condition ? 22 : 0
 ```
 
 
@@ -433,14 +433,14 @@ The `c-style` loop:
 for (let index = 0; index < array.length; index++) {
    // do something with item
    // very similar to c
-   let value = array[property]
+   let value = array[index]
 }
 ```
 
 The `for ... in` loop:
 ```js
 // Iteration over an object/array
-for (let property in items) {
+for (const property in items) {
    // do something with item
    // very similar to python
    let value = items[property]
