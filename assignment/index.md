@@ -1,7 +1,7 @@
 # Ideas
 
 * Instagram!
-   - Has lots of potential js components
+   - Has lots of potential JavaScript components
    - Infinite scroll
    - Fetch/AJAX
    - Swipe maybe?
