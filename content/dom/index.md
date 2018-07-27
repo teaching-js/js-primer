@@ -196,9 +196,9 @@ These are declared in the same way but we bind our event handlers to the `window
 
 ```js
 window.addEventListener('load',
-   (_event) => console.log('All resources finished loading!'));
+  (_event) => console.log('All resources finished loading!'));
 window.addEventListener('resize',
-   (_event) => console.log('Screen was resized'));
+  (_event) => console.log('Screen was resized'));
 ```
 
 A very common event used is a timeout event where a certain function is run after a certain amount of time
@@ -220,17 +220,17 @@ When the function is in a object, this refers to the object itself. This is simi
 
 ```js
 console.log(this); // window
-function f(){
+function f() {
   console.log(this); // still window
 }
 
 const person = {
-    firstName: 'John',
-    lastName : 'Doe',
-    id       : 5566,
-    fullName : function() {
-        return `${this.firstName} ${this.lastName}`;
-    }
+  firstName: 'John',
+  lastName : 'Doe',
+  id       : 5566,
+  fullName : function () {
+    return `${this.firstName} ${this.lastName}`;
+  }
 };
 ```
 

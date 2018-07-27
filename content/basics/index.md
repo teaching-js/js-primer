@@ -229,7 +229,7 @@ Adding a property or methods is as simple as:
 const myObject = {};
 myObject.a = 'a';
 
-myObject.f = function() { return this.a };
+myObject.f = function () { return this.a; };
 
 // or in one go:
 const myObject = {

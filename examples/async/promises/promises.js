@@ -14,8 +14,7 @@ function init() {
 
   const time = {};
   const API_URL = 'https://jsonplaceholder.typicode.com';
-  const requestURIs =
-    [1,2,3].map(num => `${API_URL}/users/${num}`);
+  const requestURIs = [1,2,3].map(num => `${API_URL}/users/${num}`);
 
   function finishRequestTiming() {
     // mark the end of the request.
@@ -39,7 +38,7 @@ function init() {
       .then(finishRequestTiming);
   }
 
-  function synchronousGet(){
+  function synchronousGet() {
     Library.clearOutput();
     Library.print('loading...');
     time.start = Date.now();
