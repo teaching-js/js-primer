@@ -264,11 +264,11 @@ An alternate way to wrap a non-asynchronous thing in a promise is to use
 eg.
 
 ```js
-const data = 10
+const data = 10;
 Promise
   .resolve(data)
   .then(data => doSomethingElse(data));
-  //TODO: should we do `.then(doSomethingElse)` instead?
+  //FIXME: should we do `.then(doSomethingElse)` instead?
 ```
 
 #### Uses Of Promises
@@ -291,7 +291,7 @@ The other thing Promises are very useful for is when you want to do a bunch of t
 // and reject otherwise.
 Promise
   .all([promise1, promise2, promise3])
-  .then((_values) => console.log('DONE!'));
+  .then(_values => console.log('DONE!'));
 ```
 
 The cool thing about `Promise.all()` is that it lets you run several things at once and keep track of all rather then running them one at a time.
@@ -305,7 +305,7 @@ Of course sometimes you don't want _all_ you just want _one_. A example is if yo
 // resolves or rejects
 Promise
   .race([ebay, gumtree, wish])
-  .then((values) => console.log(values));
+  .then(values => console.log(values));
 ```
 
 ## AJAX

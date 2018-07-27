@@ -12,10 +12,10 @@ each with subtly different behaviour.
 function normalFunction() { }
 
 // anonymous function
-const normalFunction = function() {};
+const normalFunction = function () {};
 
 // anonymous function in line.
-array.map(function(item) { return item + 1 });
+array.map(function (item) { return item + 1 });
 
 // for all of these types of functions, the value of 'this'
 // is bound to the enclosing object.

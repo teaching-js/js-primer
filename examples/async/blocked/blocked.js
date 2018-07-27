@@ -18,7 +18,7 @@ function init() {
                    .addEventListener('click', slow);
 
   //super slow function
-  function slow(){
+  function slow() {
     let i = 0;
     while(i < 2000000000) i++;
     alert("Done doing slow stuff!");
