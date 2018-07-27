@@ -1,5 +1,14 @@
 # What the DOM?
 
+This is Part 2 in a three part overview of JavaScript. If you missed Part 1,
+it's available [here](../basics).
+
+In this part we'll talk about the Document Object Model:
+* What it is and how we can manipulate it with JavaScript
+* The basics of the Event Model (as we move toward asynchronous concepts)
+
+## Introduction
+
 The Document Object Model or colloquially (`DOM`) provides the interface that allows
 JavaScript to interact with XML, SVG and HTML through the browser. Without the `DOM` API we'd be unable to
 manipulate our web pages with JavaScript.

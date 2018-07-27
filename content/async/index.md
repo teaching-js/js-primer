@@ -1,33 +1,46 @@
 # Async JS, AJAX
 
-JS was created to be the language that allowed for interactive web pages. It would allow developers to define how their page would react to things.
+This is Part 3 in a three part overview of JavaScript. If you
+missed the first two parts they're available [here](../basics) and [here](../dom).
+In this section we'll cover the basics of JavaScript in an asynchronous context.
 
-At the core of this came a issue, the things the code would react to would be **asynchronous**, that is to say a user might click on something right now or in a second or in two hours, we don't know. And furthermore we don't know what order in which a user will do things. What will they click on first, what will they type?
+## Introduction
 
-As a result JS evolved various constructs to allow users to write code that only ran when triggered by a certain event.
+JavaScript was created to be the language that allowed for interactive web pages. It would allow developers to define how their pages would react to events and updates.
+And create a richer browser experience.
+
+But at the core of this came an issue, the things the code would react to would be
+naturally **asynchronous**, that is to say a user might click on something right now -- or in a second or in two hours; you couldn't know.
+Nor can we know what order in which a user will do things. What will they click on first, what will they type?
+
+As a result, JavaScript evolved various constructs to allow users to write code that only ran when triggered by a certain event.
 We touched on some of this with the DOM, and how it handles
-Events propagating in the browser, but we'll need to go
+Events 'propagating' in the browser, but we'll need to go
 deeper to talk about I/O more broadly, and asynchronous JavaScript.
 
 ## Resource interactions
 
-A good place to start is with how js evolved to handle resource interactions.
+A good place to start is with how JavaScript evolved to handle resource interactions.
 
-Back when we had Ye Oldè Internets every time you needed more data from a server you would have to reload the entire page or redirect to a new page.
+Back when we had "Ye Olde Internets" every time you needed more data from a server you would have to reload the entire page or redirect to a new page.
 
-Each bit of info you wanted required a GET/POST request.
-
-This was difficult for our old pilgrim developers. You couldn't have a page update live like fb messenger or twitter does because you'd have to refresh the page. furthermore even if all you wanted was to grab three more posts from your newsfeed you'd have to reload the entire page.
+This was difficult for our old pilgrim developers. You couldn't have a page update live like fb messenger or twitter does because you'd have to refresh the page. Furthermore even if all you wanted was to grab three more posts from your newsfeed you'd have to reload the entire page.
 
 The entire concept of more things loading as you scroll (lazy loading) didn't exist. You'd have to download all or split your feed into pages.
 
-So naturally our brave new world explorers allowed us to make requests in JavaScript. We could fetch little bits of relevant data and update our current view appropriately.
+So naturally our brave new world explorers worked toward bridging this
+functional gap with JavaScript.
+We could fetch little bits of relevant data and update our current view appropriately.
 
-Here is the issue, IO is slow, really slow, sometimes a request can take up to a couple of seconds to complete and if you throw yourself back to when we were discussing the event loop, this is a issue.
+But IO is slow; really slow, sometimes a request can take up to a
+couple of seconds to complete and if you throw yourself back to
+when we were discussing the event loop, this is an issue.
 
 You can't wait for a server to get back to you after a request because while you are waiting, no other JavaScript can run, and your page stops reacting to events.
 
-So with I/O we developed a asynchronous toolset where we didn't ping a server and wait for a response, we rather developed our code such that the pinging of the server and getting a response were distinct events that happened independently of each other.
+So with I/O we developed a asynchronous toolset where we didn't ping a
+server and wait for a response, we rather developed our code such that
+the pinging of the server and getting a response were distinct events that happened independently of each other.
 
 ### Basic XHR
 
@@ -82,31 +95,34 @@ When you are writing code it's natural to think out your logic top down like thi
 let name = get_name();
 document.getElementById("name").value = name
 ```
-but if get_name makes a network call you can't do that, you'd have to do
+but if get_name makes a network call you can't do that, you'd have to do..
 
 ```js
 function callback(name) {
   document.getElementById("name").value = name;
 }
 
+// where callback is triggered when get_name returns from its
+// async journey
 get_name(callback);
 ```
 
-which works but we run into the issue that any lines of code we right _after_ `get_name` can not assume that we have gotten name already, even though we called the function.
+..which works but we run into the issue that any lines of code we right _after_ `get_name` can not assume that we have gotten name already, even though we called the function.
 
 ```js
 function callback(name) {
-  document.getElementById("name").value = name;
+  document.getElementById("name").value = name
 }
-document.getElementById("name").value = "lol";
-get_name(callback);
+document.getElementById("name").value = "lol"
+
+get_name(callback)
 // will print out 'lol' because the callback hasn't  
 // been called yet and we don't know when it will
 // be called.
-console.log(document.getElementById("name").value);
+console.log(document.getElementById("name").value)
 ```
 
-So if you want to do serveral things that are async in order you have to nest callback functions
+So if you want to do several things that are async in order you have to nest callback functions
 
 ```js
 do_step_1(()=>{
@@ -120,8 +136,8 @@ do_step_1(()=>{
 })
 ```
 
-look ugly? that's because it is. This is why various things popped up to try and mitigate this.
-Thus we are now gonna jump forward in time to the present where we don't do this callback nesting anymore. We use promises.
+Look ugly? That's because it is. This is why various things popped up to try and mitigate this. Thus we are now gonna jump forward in time to the present
+where we don't do this callback nesting anymore. We use promises.
 
 ### Promises
 
@@ -130,11 +146,15 @@ Thus we are now gonna jump forward in time to the present where we don't do this
 The problem was, as you can tell, with callback based async programming we could often get stuck deep in what was called 'callback hell' for complex problems. Callbacks waiting for callbacks, waiting for callbacks.
 
 As of ES5+ JavaScript has provided a better way to
+<<<<<<< HEAD:content/async.md
 synchronize our function calls; and this is `Promises`.
+=======
+synchronise our function calls; and this is `Promises`.
+>>>>>>> 71aee9c2e9c98ca97a0bbc88ddfe2a9b9f64faf6:content/async/index.md
 
 A `Promise` is a type of object that a function can return when the function is doing some sort of async operation, such as a network request.
 
-The function sends the requests and does what it needs to do and creates a object called a promise which can be used to track the progress of the request and react to it once it's complete.
+The function sends the requests and does what it needs to do and creates a object called a `Promise` which can be used to track the progress of the request and react to it once it's complete.
 
 Consider the following:
 
@@ -155,21 +175,31 @@ This is how we used to do things, if you wanted to create an async function you'
 But if instead `createAudioFileAsync` returned a `Promise` object you could do this.
 
 ```js
-createAudioFileAsync(audioSettings).then(successCallback, failureCallback)
+createAudioFileAsync(audioSettings)
+   .then(successCallback)
+   .catch(failureCallback)
 ```
 
-The promise object will be notified when the audio file is done and it can then refer to the success and failure functions the user specified.
+The `Promise` object will be notified when the audio file is done and it can then refer to the success and failure functions the user specified.
 
-The createAudioFileAsync function returns a promise object which has a function called `then`. This basically just takes in functions to trigger once the promise has **Resolved**
+The createAudioFileAsync() function returns a `Promise` object which has a method called `then`. This basically just takes in functions to trigger once the `Promise` has **Resolved**, and it allows for an important and powerful feature of `Promises` called
+chaining.
 
 #### Chaining
 
-The powerful thing about this is that the `then` function is that it returns a `Promise`. Thus they can be chained so we can have various steps of a procedure happen in sequential order.
+The powerful thing about this is that `then` also returns a `Promise`.
+Thus they can be chained so we can have various steps of a procedure happen in sequential order.
 
 ```js
-doSomething().then(result => doSomethingElse(result))
-.then(newResult => doThirdThing(newResult))
-.then(finalResult => console.log('Got the final result!'))
+doSomething()
+   .then(result => doSomethingElse(result))
+   /*
+      The above can be written as .then(doSomethingElse)
+      This is because .then takes a callback that is passed the
+      return value of the previous promise
+   */
+   .then(newResult => doThirdThing(newResult))
+   .then(finalResult => console.log('Got the final result!'))
 
 ```
 
@@ -187,7 +217,7 @@ doSomething()
 .then(null,failureCallback)
 ```
 
-or we can use the shorthand
+Or we can use the shorthand:
 
 ```js
 doSomething()
@@ -197,7 +227,7 @@ doSomething()
 .catch(failureCallback)
 ```
 
-To catch a failure on the whole chain rather then defining a failure for reach individual step.
+..to catch a failure on the whole chain rather then defining a failure for reach individual step.
 
 Note that how this works is that if one step fails it notifies the next promise in the chain who will notify the next promise onwards until it hits the last promise on which we defined a failure callback.
 
@@ -210,11 +240,14 @@ myPromise.then(() => throw new Error('Something failed'))
 .catch(() => console.log('Do that'))
 // do cleanup
 .then(() => console.log('Do this, no matter what happened before'))
+// this could also be written as finally
+// ie
+.finally(() => console.log("Always do this."))
 ```
 
 #### Creating Promises
 
-Ok cool so how can we use promises in our own code?
+Okay cool -- so how can we use `Promises` in our own code?
 
 All we need to do is specify two things, how to resolve and how to reject.
 
@@ -226,27 +259,40 @@ const myFirstPromise = new Promise((resolve, reject) => {
   //   resolve(someValue); // fulfilled
   // or
   //   reject("failure reason"); // rejected
-});
+})
+```
+
+An alternate way to wrap a non-asynchronous thing in a promise is to use
+`Promise.resolve()`.
+
+eg.
+
+```js
+const data = 10
+Promise.resolve(data)
+.then(data => doSomethingElse(data))
 ```
 
 #### Uses Of Promises
 
-So one of the things js introduced recently is the `fetch` function which does all the annoying XHR stuff above for us and just returns a simple promise
+So one of the things JavaScript introduced recently is the `fetch` function which does all the annoying XHR stuff above for us and just returns a simple promise
 
 ```js
-fetch('http://example.com/movies.json')
-  .then((response) => response.json())
-  .then((myJson) => console.log(myJson))
+fetch('https://example.com/movies.json')
+  .then(response => response.json())
+  // jsonify the response stream object
+  .then(myJson => console.log(myJson))
 ```
 
-The other thing promises are very useful for is when you want to do a bunch of things in tandem.
+The other thing Promises are very useful for is when you want to do a bunch of things in tandem.
 
 ```js
 // promise.all takes a bunch of Promises
 // and returns a parent promise which will
 // resolve only if all it's children Resolved
 // and reject otherwise.
-Promise.all([promise1, promise2, promise3]).then((values) =>console.log("DONE!"))
+Promise.all([promise1, promise2, promise3])
+   .then((values) => console.log("DONE!"))
 ```
 
 The cool thing about `Promise.all()` is that it lets you run several things at once and keep track of all rather then running them one at a time.
@@ -258,7 +304,8 @@ Of course sometimes you don't want _all_ you just want _one_. A example is if yo
 // will return a promise that resolves or
 // rejects as soon as one of it's children
 // resolves or rejects
-Promise.race([ebay, gumtree, wish]).then((values) => console.log(values))
+Promise.race([ebay, gumtree, wish])
+   .then((values) => console.log(values))
 ```
 
 ## AJAX
@@ -277,10 +324,15 @@ Basically rather then the server sending the html which renders into your newsfe
 
 The rendering and data are separated.
 
-![ajax web model](https://derivadow.files.wordpress.com/2007/01/ajax.png?w=506&h=309)
+![Ajax Web Model](https://derivadow.files.wordpress.com/2007/01/ajax.png?w=506&h=309)
 
-Various libraries try and help reach this model, notably react, vue, angular js, jquery etc. all make it easier for js to render the webpage client side reacting to data from the server.
+Various libraries try and help reach this model, notably React, Vue, AngularJS, jquery etc. all make it easier for JavaScript to render the webpage client side reacting to data from the server, and async changes in the DOM driven by user interaction.
 
 ### Why do this?
 
-It's good decoupled code, you can change what data is being sent and how it gets rendered independently. It also shifts to making the client computer do the heavy rendering while leaving the server to do quick data processing. This ends up being faster overall, computers can handle having to render a bunch of things more then server's can handle doing a lot of processing to form html simply because servers are getting hit up non stop.
+It's good decoupled code, you can change what data is being sent and how it gets
+ rendered independently. It also shifts to making the client computer do the heavy
+ rendering while leaving the server to do quick data processing. This ends up being
+ faster overall, computers can handle having to render a bunch of things more then
+ server's can handle doing a lot of processing to form html simply because servers are
+ getting hit up non stop.

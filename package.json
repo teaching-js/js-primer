@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "JavaScript course content for COMP2041, Software Construction",
   "scripts": {
-    "test": "./node_modules/.bin/mocha ./exercises/tests/*.js"
+    "test": "npx ./exercises/tests/*.js"
   },
   "repository": {
     "type": "git",
