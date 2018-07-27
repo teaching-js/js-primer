@@ -17,7 +17,7 @@ browser devtools. It'll look something like this on `Chrome`.
 For the most basic type of debugging, you can use:
 
 ```js
-console.log("some debug string...")
+console.log('some debug string...');
 ```
 
 .. In your JavaScript code

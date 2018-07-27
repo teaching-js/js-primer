@@ -93,7 +93,7 @@ There are a number of ways to declare scripts in the browser. More on that [here
    <body>
       <!-- This is an in-line script -->
       <script>
-         alert('Hello World!')
+         alert('Hello World!');
       </script>
 
       <!-- This also would work, for the local file filename.js -->
@@ -136,9 +136,9 @@ but is also 'hoisted' to the top of the current code block.
 Given this is a common source of bugs, and given it offers no real advantage over `let`, you should really always use `let`.
 
 ```js
-const myVar      = 10
-let   myOtherVar = "Dog"
-var   myVarVar   = [] // should be let or const
+const myVar      = 10;
+let   myOtherVar = 'Dog';
+var   myVarVar   = []; // should be let or const
 ```
 
 ### Operators
@@ -148,8 +148,8 @@ with a few additional ones.
 
 ```js
 // assignment
-let      a = 5
-const list = [1, 5]
+let      a = 5;
+const list = [1, 5];
 
 // bitwise operations
 ^ | & >> <<
@@ -211,10 +211,10 @@ The basic Object declaration is simply:
 // note const limitations apply only to reassigning
 // the Object. Object properties can still be altered
 // with a const declaration.
-const myObject = {}
+const myObject = {};
 
 // or like this
-const myOtherObject = new Object()
+const myOtherObject = new Object();
 ```
 
 The new keyword is a constructor. Similar to Java, `new`
@@ -226,18 +226,18 @@ everything is an object, these differences are more semantic than real.
 Adding a property or methods is as simple as:
 
 ```js
-const myObject = {}
-myObject.a = "a"
+const myObject = {};
+myObject.a = 'a';
 
-myObject.f = function() { return this.a }
+myObject.f = function() { return this.a };
 
 // or in one go:
 const myObject = {
-   a: "a",
+   a: 'a',
    f() {
-      return this.a
+      return this.a;
    }
-}
+};
 ```
 
 A further note, properties and methods can be accessed with the `.` syntax or
@@ -245,7 +245,7 @@ via their string equivalent.
 
 ```js
 // that is
-obj.a == obj['a']
+obj.a == obj['a'];
 ```
 
 #### The dreaded `this`
@@ -279,21 +279,21 @@ This looks something like:
 // note the use of this in this special constructor
 // also note the caps (a convention for constructor functions)
 function Person(firstName, lastName, age) {
-   this.firstName = firstName
-   this.lastName  = lastName
-   this.age       = age
+   this.firstName = firstName;
+   this.lastName  = lastName;
+   this.age       = age;
 }
 
 Person.prototype.getFullName = function() {
-   return this.firstName + " " + this.lastName
-}
+   return `${this.firstName} ${this.lastName}`;
+};
 
 Person.prototype.canDrinkAlcohol = function() {
-   return this.age >= 18
-}
+   return this.age >= 18;
+};
 
 // now if we call the constructor function we get this
-new Person("Jeff", "Goldblum", 50)
+new Person('Jeff', 'Goldblum', 50);
 // => Person { firstName: 'Jeff', lastName: 'Goldblum', age: 50 }
 ```
 
@@ -319,17 +319,17 @@ function PersonFactory(firstName, lastName, age) {
 
    return {
       getFullName () {
-         return firstName + " " + lastName
+         return `${firstName} ${lastName}`;
       },
 
       canDrinkAlcohol() {
-         return age >= 18
+         return age >= 18;
       }
    }
 }
 
 // which we'd call like
-const jeff = PersonFactory("Jeff", "Goldblum", 50)
+const jeff = PersonFactory('Jeff', 'Goldblum', 50);
 ```
 
 ## Scope, Control Flow, Loops and Iteration
@@ -351,15 +351,15 @@ Essentially:
 
 ```js
 // function is called 'before' it's declared (valid)
-myFunction() // will output Hi Andrew
+myFunction(); // will output Hi Andrew
 
 function myFunction() {
    // name refers to the var name via hoisting
-   name = "Andrew"
-   console.log("Hi", name)
+   name = 'Andrew';
+   console.log('Hi', name);
 }
 // this will be hoisted
-var name
+var name;
 ```
 ... Is valid.
 
@@ -377,22 +377,22 @@ function closureFunction() {
    // here the count variable is only in the function's scope,
    // but myObject stores a reference so it hangs around even when
    // the function returns.
-   let count = 0
+   let count = 0;
 
    const myObject = {
       counter() {
-         return count
+         return count;
       },
       increment() {
-         count++
+         count++;
       }
-   }
+   };
 
-   return myObject
+   return myObject;
 }
 
-const obj = closureFunction()
-obj.counter() // == 0 Because obj has a reference to count
+const obj = closureFunction();
+obj.counter(); // == 0 Because obj has a reference to count
 ```
 
 #### Garbage Collection
@@ -422,35 +422,35 @@ else
    // something else
 
 // And of course ternary
-const x = condition ? 22 : 0
+const x = condition ? 22 : 0;
 ```
 
 
 ### Loops
 Let's assume we have an Object and Array as below:
 ```js
-const array = [ "Teddy", "Clock"]
+const array = ['Teddy', 'Clock'];
 
 const item = {
-   name: "Box",
+   name: 'Box',
    weight: 10,
    contents: array
-}
+};
 ```
 
 The `while` or `do-while` loop:
 ```js
 // same as c
-let index = 0
+let index = 0;
 
 while (index < array.length) {
-   let value = array[index]
-   index++
+   let value = array[index];
+   index++;
 }
 
 do {
-   let value = array[index]
-   index++
+   let value = array[index];
+   index++;
 } while (index < array.length);
 
 ```
@@ -461,7 +461,7 @@ The `c-style` loop:
 for (let index = 0; index < array.length; index++) {
    // do something with item
    // very similar to c
-   let value = array[index]
+   let value = array[index];
 }
 ```
 
@@ -471,7 +471,7 @@ The `for ... in` loop:
 for (const property in items) {
    // do something with item
    // very similar to python
-   let value = items[property]
+   let value = items[property];
 }
 ```
 
@@ -481,7 +481,7 @@ The `for ... of` loop:
 // Common iterables include String and Array types.
 for (const item of array) {
    // the value of item for each iteration
-   item => ["Teddy", "Clock"]
+   item => ['Teddy', 'Clock'];
 }
 ```
 
@@ -492,21 +492,21 @@ and if it fails catch the exceptions thrown by the thing that went wrong.
 
 ```js
 try {
-   somethingBad()
+   somethingBad();
 } catch (e) {
    // an error occurred
-   const message = e.message
+   const message = e.message;
 } finally {
    // do something that u would do either way
 }
 
 // can create own errors or throw errors like so.
-const e = new Error("Bad Thing Happened")
+const e = new Error('Bad Thing Happened');
 
 // And there's also the 'throw' syntax
 // you don't even need to create a custom error you can simply throw signal
 // something went wrong.
-throw "Error"
+throw 'Error';
 ```
 
 One further note on errors. We can, if we so choose, create specific catch handlers.
@@ -515,7 +515,7 @@ Most of the time this is overkill, but it can be useful:
 
 ```js
 try {
-    somethingBad()
+    somethingBad();
 } catch (e if e instanceof TypeError) {
     // statements to handle TypeError exceptions
 } catch (e if e instanceof RangeError) {

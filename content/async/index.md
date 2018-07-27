@@ -54,17 +54,17 @@ Once the server responds a event is put onto the event queue and when it is its 
 // this get's called at a later time whenever
 // the server responds
 
-function callback(data){
+function callback(data) {
   // use the data
 }
 
 
-let oReq = new XMLHttpRequest()
-oReq.addEventListener("load", callback)
+let oReq = new XMLHttpRequest();
+oReq.addEventListener('load', callback);
 
 // these lines return super quickly even though
 // the server hasn't responded. They don't wait.
-oReq.open("GET","http://www.example.org/example.txt");
+oReq.open('GET', 'http://www.example.org/example.txt');
 oReq.send();
 ```
 
@@ -93,13 +93,13 @@ When you are writing code it's natural to think out your logic top down like thi
 
 ```js
 let name = get_name();
-document.getElementById("name").value = name
+document.getElementById('name').value = name;
 ```
 but if get_name makes a network call you can't do that, you'd have to do..
 
 ```js
 function callback(name) {
-  document.getElementById("name").value = name;
+  document.getElementById('name').value = name;
 }
 
 // where callback is triggered when get_name returns from its
@@ -111,26 +111,26 @@ get_name(callback);
 
 ```js
 function callback(name) {
-  document.getElementById("name").value = name
+  document.getElementById('name').value = name;
 }
-document.getElementById("name").value = "lol"
+document.getElementById('name').value = 'lol';
 
-get_name(callback)
+get_name(callback);
 // will print out 'lol' because the callback hasn't  
 // been called yet and we don't know when it will
 // be called.
-console.log(document.getElementById("name").value)
+console.log(document.getElementById('name').value);
 ```
 
 So if you want to do several things that are async in order you have to nest callback functions
 
 ```js
-do_step_1(()=>{
-  step_1_logic()
-  do_step_2(()=>{
-    step_2_logic()
-    do_step_3(()=>{
-      step_3_logic()
+do_step_1(() => {
+  step_1_logic();
+  do_step_2(() => {
+    step_2_logic();
+    do_step_3(() => {
+      step_3_logic();
     })
   })
 })
@@ -155,14 +155,14 @@ Consider the following:
 
 ```js
 function successCallback(result) {
-  console.log("Audio file ready at URL: " + result)
+  console.log(`Audio file ready at URL: ${result}`);
 }
 
 function failureCallback(error) {
-  console.log("Error generating audio file: " + error)
+  console.log(`Error generating audio file: ${error}`);
 }
 
-createAudioFileAsync(audioSettings, successCallback, failureCallback)
+createAudioFileAsync(audioSettings, successCallback, failureCallback);
 ```
 
 This is how we used to do things, if you wanted to create an async function you'd define your own interface and take in callback functions.
@@ -171,8 +171,8 @@ But if instead `createAudioFileAsync` returned a `Promise` object you could do t
 
 ```js
 createAudioFileAsync(audioSettings)
-   .then(successCallback)
-   .catch(failureCallback)
+  .then(successCallback)
+  .catch(failureCallback);
 ```
 
 The `Promise` object will be notified when the audio file is done and it can then refer to the success and failure functions the user specified.
@@ -187,14 +187,14 @@ Thus they can be chained so we can have various steps of a procedure happen in s
 
 ```js
 doSomething()
-   .then(result => doSomethingElse(result))
-   /*
-      The above can be written as .then(doSomethingElse)
-      This is because .then takes a callback that is passed the
-      return value of the previous promise
-   */
-   .then(newResult => doThirdThing(newResult))
-   .then(finalResult => console.log('Got the final result!'))
+  .then(result => doSomethingElse(result))
+  /*
+    The above can be written as .then(doSomethingElse)
+    This is because .then takes a callback that is passed the
+    return value of the previous promise
+  */
+  .then(newResult => doThirdThing(newResult))
+  .then(finalResult => console.log('Got the final result!'));
 
 ```
 
@@ -206,20 +206,20 @@ We can use this
 
 ```js
 doSomething()
-.then(result => doSomethingElse(result))
-.then(newResult => return doThirdThing(newResult))
-.then(finalResult => console.log('Got the final result!'))
-.then(null,failureCallback)
+  .then(result => doSomethingElse(result))
+  .then(newResult => return doThirdThing(newResult))
+  .then(finalResult => console.log('Got the final result!'))
+  .then(null,failureCallback);
 ```
 
 Or we can use the shorthand:
 
 ```js
 doSomething()
-.then(result => doSomethingElse(result))
-.then(newResult => return doThirdThing(newResult))
-.then(finalResult => console.log('Got the final result!'))
-.catch(failureCallback)
+  .then(result => doSomethingElse(result))
+  .then(newResult => return doThirdThing(newResult))
+  .then(finalResult => console.log('Got the final result!'))
+  .catch(failureCallback);
 ```
 
 ..to catch a failure on the whole chain rather then defining a failure for reach individual step.
@@ -229,15 +229,16 @@ Note that how this works is that if one step fails it notifies the next promise 
 Of course it's possible to chain after a failure if you wish to do some cleanup regardless if a failure occurred or not.
 
 ```js
-// simulate failure
-myPromise.then(() => throw new Error('Something failed'))
-// handle failure
-.catch(() => console.log('Do that'))
-// do cleanup
-.then(() => console.log('Do this, no matter what happened before'))
-// this could also be written as finally
-// ie
-.finally(() => console.log("Always do this."))
+myPromise
+  // simulate failure
+  .then(() => throw new Error('Something failed'))
+  // handle failure
+  .catch(() => console.log('Do that'))
+  // do cleanup
+  .then(() => console.log('Do this, no matter what happened before'))
+  // this could also be written as finally
+  // ie
+  .finally(() => console.log("Always do this."));
 ```
 
 #### Creating Promises
@@ -254,7 +255,7 @@ const myFirstPromise = new Promise((resolve, reject) => {
   //   resolve(someValue); // fulfilled
   // or
   //   reject("failure reason"); // rejected
-})
+});
 ```
 
 An alternate way to wrap a non-asynchronous thing in a promise is to use
@@ -264,8 +265,10 @@ eg.
 
 ```js
 const data = 10
-Promise.resolve(data)
-.then(data => doSomethingElse(data))
+Promise
+  .resolve(data)
+  .then(data => doSomethingElse(data));
+  //TODO: should we do `.then(doSomethingElse)` instead?
 ```
 
 #### Uses Of Promises
@@ -276,7 +279,7 @@ So one of the things JavaScript introduced recently is the `fetch` function whic
 fetch('https://example.com/movies.json')
   .then(response => response.json())
   // jsonify the response stream object
-  .then(myJson => console.log(myJson))
+  .then(console.log);
 ```
 
 The other thing Promises are very useful for is when you want to do a bunch of things in tandem.
@@ -286,8 +289,9 @@ The other thing Promises are very useful for is when you want to do a bunch of t
 // and returns a parent promise which will
 // resolve only if all it's children Resolved
 // and reject otherwise.
-Promise.all([promise1, promise2, promise3])
-   .then((values) => console.log("DONE!"))
+Promise
+  .all([promise1, promise2, promise3])
+  .then((_values) => console.log('DONE!'));
 ```
 
 The cool thing about `Promise.all()` is that it lets you run several things at once and keep track of all rather then running them one at a time.
@@ -299,8 +303,9 @@ Of course sometimes you don't want _all_ you just want _one_. A example is if yo
 // will return a promise that resolves or
 // rejects as soon as one of it's children
 // resolves or rejects
-Promise.race([ebay, gumtree, wish])
-   .then((values) => console.log(values))
+Promise
+  .race([ebay, gumtree, wish])
+  .then((values) => console.log(values));
 ```
 
 ## AJAX

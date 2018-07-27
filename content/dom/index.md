@@ -47,43 +47,43 @@ following methods.
 ```js
 // document is global, returns an html element
 // with the specific id.
-document.getElementById(id)
+document.getElementById(id);
 
 // returns a DOM HTMLCollection
-document.getElementsByTagName(name)
+document.getElementsByTagName(name);
 
 // returns an html element
-document.createElement(name)
+document.createElement(name);
 
 // returns a list
-document.getElementsByClassName(className)
+document.getElementsByClassName(className);
 
 // node and element interactions
-parentNode.appendChild(node)
-parentNode.removeChild(node)
+parentNode.appendChild(node);
+parentNode.removeChild(node);
 
 // access what's in a node
 node.nodeData or node.data
 
 // access what's in an element
-element.innerHTML
-element.textContent // not always what u want, read docs.
+element.innerHTML;
+element.textContent; // not always what u want, read docs.
 
 // change the style.
-element.style.left
+element.style.left;
 
 // as advertised
-element.setAttribute(attr, value)
-element.getAttribute(attr)
-element.addEventListener(eventType, handler)
+element.setAttribute(attr, value);
+element.getAttribute(attr);
+element.addEventListener(eventType, handler);
 
 // window is also global (in fact the window encloses the document)
-window.onload = () => init()
-window.dump()
-window.scrollTo()
-window.innerHeight
-window.innerWidth
-window.addEventListener(eventType, handler)
+window.onload = init;
+window.dump();
+window.scrollTo();
+window.innerHeight;
+window.innerWidth;
+window.addEventListener(eventType, handler);
 ```
 
 ## Events and the Event Loop
@@ -101,7 +101,7 @@ The Event Loop is at its core quite simple, in JavaScript is something like the 
 
 ```js
 while (queue.waitForMessage()) {
-  queue.processNextMessage()
+  queue.processNextMessage();
 }
 ```
 
@@ -147,7 +147,7 @@ with the specific node that was interacted with; and its children.
 ```html
 <script>
   function myFunction(){
-    alert('i am a hack0r')
+    alert('i am a hack0r');
   }
 </script>
 
@@ -160,11 +160,11 @@ A better way to attach event handlers is in JavaScript code. In practice this is
 ```js
 // generally preferred style
 document
-   .getElementById("mybutton")
-   .addEventListener('click', function(event) {})
+  .getElementById("mybutton")
+  .addEventListener('click', function(event) {});
 
 // this also works
-document.getElementById("mybutton").onclick = function(event) {}
+document.getElementById("mybutton").onclick = function(event) {};
 ```
 
 Here what we have done is _bound_ an inline listener function to a DOM Node and an event -- the
@@ -179,11 +179,11 @@ function myEventHandler(event) { ... }
 
 // generally preferred style
 document
-   .getElementById("mybutton")
-   .addEventListener('click', myEventHandler)
+  .getElementById("mybutton")
+  .addEventListener('click', myEventHandler);
 
 // but this works too
-document.getElementById("mybutton").onclick = myEventHandler
+document.getElementById("mybutton").onclick = myEventHandler;
 ```
 
 The event object is hard to say anything about because what it contains depends on the event. A KeyPress event object holds information on what key was pressed, a click holds information on where the click happened etc. See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/Events) for more info.
@@ -195,17 +195,17 @@ There are also some events that don't directly relate to a specific DOM node, su
 These are declared in the same way but we bind our event handlers to the `window` which acts as an overarching anchor for our events.
 
 ```js
-window.addEventListener("load",
-   (event) => console.log("All resources finished loading!"))
-window.addEventListener("resize",
-   (event) => console.log("Screen was resized"))
+window.addEventListener('load',
+   (_event) => console.log('All resources finished loading!'));
+window.addEventListener('resize',
+   (_event) => console.log('Screen was resized'));
 ```
 
 A very common event used is a timeout event where a certain function is run after a certain amount of time
 
 ```js
 // print out hello after 3000ms (3 seconds)
-setTimeout(() => alert("Hello"), 3000)
+setTimeout(() => alert('Hello'), 3000);
 ```
 
 JavaScript also lets you make your own custom events and state when you want them to fire but for now that's out of the scope.
@@ -219,19 +219,19 @@ but to recap, `this` refers to the _enclosing_ object.
 When the function is in a object, this refers to the object itself. This is similar to how python implements `self` and java implements `this`. But context matters!
 
 ```js
-console.log(this) // window
+console.log(this); // window
 function f(){
-  console.log(this) // still window
+  console.log(this); // still window
 }
 
 const person = {
-    firstName: "John",
-    lastName : "Doe",
+    firstName: 'John',
+    lastName : 'Doe',
     id       : 5566,
     fullName : function() {
-        return this.firstName + " " + this.lastName
+        return `${this.firstName} ${this.lastName}`;
     }
-}
+};
 ```
 
 This is all dandy but what's cool is that when a event is triggered, `this` is bound to the node on which the listener is attached.
@@ -306,7 +306,7 @@ Or we can be very specific in how we react to an event, `event.target` holds the
 function myHandler(event) {
   // i don't care about nested events
   if (event.target != this) {
-    return
+    return;
   }
 
   /* this is a demo, there are better ways to do this */
