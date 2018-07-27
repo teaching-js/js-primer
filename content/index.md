@@ -2,7 +2,8 @@
 
 1. [Getting started with JavaScript](basics)
    - [Quickstart & Environment Setup](quickstart)
-   - [More on Objects](objects)
+   - [More on Objects](basics/objects)
+   - [Thinking functional](basics/functions)
    - [Using DevTools](devtools)
    - [Using Node with JS](node)
 2. [Understanding the Document Object Model (DOM)](dom)

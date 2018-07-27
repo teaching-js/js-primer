@@ -1,5 +1,12 @@
 # An Overview of JavaScript
 
+This is Part 1 in a three part overview of JavaScript.
+
+In this part we'll talk about the basics:
+* The language syntax and semantics (this article)
+* [Objects](objects)
+* [Functions](functions) and declarative JavaScript.
+
 ## The Language
 
 JavaScript is an **interpreted**, just-in-time compilation language that supports
@@ -173,6 +180,12 @@ JavaScript has seven primitive types:
 
 You can verify the type of any variable with `typeof`.
 
+### Functions
+
+Functions as mentioned above, are a special type of `Object`
+-- but are worth talking about separately as they're quite different to
+most other JavaScript objects. For a
+
 ### Objects
 
 Objects are everywhere in JavaScript. For a deeper dive into
@@ -247,6 +260,7 @@ To properly create a complex object, we need can have a function constructor and
 we need to extend the Prototype of said function.
 
 This looks something like:
+
 ```js
 // note the use of this in this special constructor
 // also note the caps (a convention for constructor functions)

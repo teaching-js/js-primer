@@ -3,7 +3,7 @@
 Three key lessons and a bunch of resources to help you become a better programmer.
 
 ## Topics
-* [Language Context, Syntax, Types](content), and [Objects](content/objects)
+* [Language Context, Syntax, Types](content), [Objects](content/basics/objects), and thinking [functionally](content/basics/functions)
    - Language background, design
    - Getting up to speed as quickly as possible
 * [The Document Object Model (DOM)](content/dom)
