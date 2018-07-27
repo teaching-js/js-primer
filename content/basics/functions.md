@@ -72,4 +72,4 @@ rather than an arguments list. IE.
 const returnVal = object.method.apply(object, [arg1, arg2]);
 ```
 
-## Thinking Functional
+## Thinking Functionally

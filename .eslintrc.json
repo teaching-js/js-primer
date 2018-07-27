@@ -19,7 +19,9 @@
         ],
         "semi": [
             "error",
-            "always"
-        ]
+            "always",
+            { "omitLastInOneLineBlock": true}
+        ],
+        "no-console": 0
     }
 }

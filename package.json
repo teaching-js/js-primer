@@ -18,6 +18,10 @@
      {
         "name" : "Zain Afzal",
         "url" : "http://www.zainafzal.com/"
+     },
+     {
+        "name" : "Alex Hinds",
+        "url" : "https://alhinds.com/"
      }
   ],
   "license": "ISC",

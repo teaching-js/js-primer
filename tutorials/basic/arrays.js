@@ -51,7 +51,7 @@ const betterUsers = users.map(({ name, age, gender }) => ({
 }));
 
 // or creating a summary string with map + reduce.
-const usersString = users
+const usersString = betterUsers
                       .map(({ name, age, gender }) =>
                          `${name} (${gender}) is ${age} years of age.`)
                       .reduce((all, curr) => `${all}\n${curr}`);

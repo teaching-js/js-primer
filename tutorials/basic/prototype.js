@@ -17,3 +17,5 @@ Person.prototype.canDrinkAlcohol = function () {
 // now if we call the constructor function we get this
 const jeff = new Person('Jeff', 'Goldblum', 50);
 // => Person { firstName: 'Jeff', lastName: 'Goldblum', age: 50 }
+
+jeff.getFullName(); // 'Jeff Goldblum'

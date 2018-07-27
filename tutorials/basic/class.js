@@ -21,4 +21,6 @@ class Person {
 
 // now if we call the constructor function we get this
 const jeff = new Person('Jeff', 'Goldblum', 50);
+jeff.getFullName(); // 'Jeff Goldblum'
+jeff.canDrinkAlcohol(); // true
 // => Person { firstName: 'Jeff', lastName: 'Goldblum', age: 50 }
