@@ -1,6 +1,6 @@
 function init() {
 
-  function getUsers(){
+  function getUsers() {
     // let the user know we are loading
     Library.print('loading...');
 
