@@ -1,6 +1,10 @@
 # Functions and Declarative programming
 
-AS of ES6 there are two different ways to declare a function,
+First a little bit of preamble to give a quick overview on syntax and styles.
+
+## Syntax
+Functions are, like Objects, _everywhere_ in JavaScript.
+As of ES6 there are two different ways to declare a function,
 each with subtly different behaviour.
 
 ```js
@@ -27,7 +31,7 @@ However... (as of ES6)
 const returns10 = () => 10
 const greet = name => "Hello " + name
 
-// fr the example above we get the much nicer
+// for the example above we get the much nicer
 array.map(item => item + 1)
 
 // But arrow functions also have one special property!
@@ -67,3 +71,5 @@ rather than an arguments list. IE.
 ```js
 const returnVal = object.method.apply(object, [ arg1, arg2 ])
 ```
+
+## Thinking Functional

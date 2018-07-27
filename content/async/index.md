@@ -320,10 +320,15 @@ Basically rather then the server sending the html which renders into your newsfe
 
 The rendering and data are separated.
 
-![ajax web model](https://derivadow.files.wordpress.com/2007/01/ajax.png?w=506&h=309)
+![Ajax Web Model](https://derivadow.files.wordpress.com/2007/01/ajax.png?w=506&h=309)
 
-Various libraries try and help reach this model, notably react, vue, angular js, jquery etc. all make it easier for js to render the webpage client side reacting to data from the server.
+Various libraries try and help reach this model, notably React, Vue, AngularJS, jquery etc. all make it easier for JavaScript to render the webpage client side reacting to data from the server, and async changes in the DOM driven by user interaction.
 
 ### Why do this?
 
-It's good decoupled code, you can change what data is being sent and how it gets rendered independently. It also shifts to making the client computer do the heavy rendering while leaving the server to do quick data processing. This ends up being faster overall, computers can handle having to render a bunch of things more then server's can handle doing a lot of processing to form html simply because servers are getting hit up non stop.
+It's good decoupled code, you can change what data is being sent and how it gets
+ rendered independently. It also shifts to making the client computer do the heavy
+ rendering while leaving the server to do quick data processing. This ends up being
+ faster overall, computers can handle having to render a bunch of things more then
+ server's can handle doing a lot of processing to form html simply because servers are
+ getting hit up non stop.
