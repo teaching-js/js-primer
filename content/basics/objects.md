@@ -26,7 +26,7 @@ callback function passed in. Callback should return true or false.
 const array = [1, 2, 3, 4];
 
 function odd(num) {
-   return num % 2;
+  return num % 2;
 }
 
 const odd_only = array.filter(odd); // [ 1, 3 ]
@@ -44,7 +44,7 @@ The function passed in should return the mapped value
 const array = [1, 2, 3, 4];
 
 function double(num) {
-   return num % 2;
+  return num % 2;
 }
 
 const double = array.map(double); // [ 2, 4, 6, 8 ]
@@ -85,7 +85,7 @@ const [ ..., a, b ] = list;
 // alternatively in a function.
 function spread(a, b, c) {}
 spread(...list) {
-   // a, b, c now set appropately
+  // a, b, c now set appropately
 }
 ```
 
