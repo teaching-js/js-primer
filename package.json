@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "JavaScript course content for COMP2041, Software Construction",
   "scripts": {
-    "test": "npx ./exercises/tests/*.js"
+    "test": "npx ./exercises/tests/*.js",
+    "lint": "npx eslint ./**/*.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/DarkPurple141/js-primer#readme",
   "dependencies": {
+    "eslint": "^5.2.0",
     "mocha": "^5.2.0"
   }
 }
