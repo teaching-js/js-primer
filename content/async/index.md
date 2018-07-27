@@ -145,8 +145,7 @@ where we don't do this callback nesting anymore. We use promises.
 
 The problem was, as you can tell, with callback based async programming we could often get stuck deep in what was called 'callback hell' for complex problems. Callbacks waiting for callbacks, waiting for callbacks.
 
-As of ES5+ JavaScript has provided a better way to
-synchronise our function calls; and this is `Promises`.
+As of ES5+ JavaScript has provided a better way to synchronise our function calls; and this is `Promises`.
 
 A `Promise` is a type of object that a function can return when the function is doing some sort of async operation, such as a network request.
 

@@ -27,6 +27,20 @@ functionality in slightly different ways, because of
 the generality of the JavaScript standard specification set out by the ECMAScript
 foundation. For the basics however, these differences aren't really worth dwelling on.
 
+## Warning
+
+As we go through js we will talk a lot about things that js _can_ do but that you _shouldn't_ do. And various things that the language is trying to shift away from and things it's trying to move towards.
+
+It's important to keep in mind that the reason js is so in flux is because it was, is and will continue to be the primary programming language for a lot of web development.
+
+As such it has a incredible amount of legacy features and syntax that can't be taken out in fear of breaking older websites. At the same time though, js is being used more and more so new features and paradigms are constantly being added and discussed to make the language work for various applications better.
+
+The issue is that with on hardware software you can have a set of well defined languages, (C, Ruby, python, etc) and each has it's strengths and weaknesses you can consider before choosing a language.
+
+With client side code, you're only option is really javascript at the moment. So Js has had to become a jack of all trades while at the same time keeping legacy features from a time when js was designed to do very simple small bits of interactivity.
+
+It's good to keep this in mind because it's very often you'll meet things in js that are confusing, stupid and outright infuriating.
+
 ## Usage
 
 Most commonly we use JavaScript in web browsers for client-side script execution,
