@@ -5,7 +5,7 @@ function init() {
   // Remember that once a event is on the event queue it isn't run
   // untill the current block of code that's being run is finished
   function main() {
-     Library.print("Hello")
+     Library.print('Hello');
      setTimeout(() => {
         Library.print("World")
      }, 0)

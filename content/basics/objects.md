@@ -23,16 +23,16 @@ callback function passed in. Callback should return true or false.
 
 ```js
 
-const array = [1, 2, 3, 4]
+const array = [1, 2, 3, 4];
 
 function odd(num) {
-   return num % 2
+   return num % 2;
 }
 
-const odd_only = array.filter(odd) // [ 1, 3 ]
+const odd_only = array.filter(odd); // [ 1, 3 ]
 
 // or with arrow func
-const odd_only = array.filter(curr => curr % 2) // [ 1, 3 ]
+const odd_only = array.filter(curr => curr % 2); // [ 1, 3 ]
 ```
 
 ### Map `.map(fn)`
@@ -41,25 +41,25 @@ The function passed in should return the mapped value
 
 ```js
 
-const array = [1, 2, 3, 4]
+const array = [1, 2, 3, 4];
 
 function double(num) {
-   return num % 2
+   return num % 2;
 }
 
-const double = array.map(double) // [ 2, 4, 6, 8 ]
+const double = array.map(double); // [ 2, 4, 6, 8 ]
 
 // or with arrow func
-const double = array.map(curr => curr * 2) // [ 2, 4, 6, 8 ]
+const double = array.map(curr => curr * 2); // [ 2, 4, 6, 8 ]
 ```
 
 ### Reduce `.reduce(fn)`
 Look up docs. Very versatile.
 
 ```js
-const array = [1, 2, 3, 4]
+const array = [1, 2, 3, 4];
 
-const sum = array.reduce((sum, current) => sum + current, 0) // 1+2+3+4
+const sum = array.reduce((sum, current) => sum + current, 0); // 1+2+3+4
 ```
 
 ### Join `.join(delimiter)`
@@ -78,8 +78,8 @@ you to quickly and easily select elements in an array. eg.
 
 ```js
 // spread
-const list = [10, 12, 13]
-const [..., a, b] = list
+const list = [10, 12, 13];
+const [ ..., a, b ] = list;
 // a == 12, b == 13
 
 // alternatively in a function.

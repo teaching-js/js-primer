@@ -19,9 +19,9 @@ Eg. Let's say we're prepping a basic script for the browser and we want to test 
 ```js
 // a script without DOM interactions
 // list.js
-const list = ["Sam", "Delilah", "Mary"]
+const list = ['Sam', 'Delilah', 'Mary'];
 
-console.log(list.indexOf("Mary"))
+console.log(list.indexOf('Mary'));
 ```
 
 ```bash
