@@ -1,8 +1,8 @@
 
 const shoppingCart = [
-   { item: "Apple", price: 10 },
-   { item: "Orange", price: 12 },
-   { item: "Pineapple", price: 5 },
+   { item: 'Apple', price: 10 },
+   { item: 'Orange', price: 12 },
+   { item: 'Pineapple', price: 5 },
 ];
 
 const multiply = a => b => a * b;
