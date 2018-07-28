@@ -73,3 +73,48 @@ const returnVal = object.method.apply(object, [arg1, arg2]);
 ```
 
 ## Thinking Functionally
+
+Functions in JavaScript are first class objects; that is they
+can be more or less treated in the same way as variables, passed around,
+and even returned by other functions. This isn't a unique trait of JavaScript
+but it does allow you to think and program differently than you might
+otherwise be used to.
+
+### Imperative vs Declarative programming
+If you've come from a language like `C` you're likely to think
+in an imperative way when you think about your code patterns.
+
+_Imperative_ programming is like a recipe. Do this, then this, then that.
+It's a set of commands that the process will follow.
+
+_Declarative_ programming on the other hand is a way of
+describing a program's logic rather than the direct process.
+
+```js
+const double = num => num * 2
+
+// imperative
+for (const value of list) {
+   doubledList.push(value * 2)
+}
+
+// declarative
+const doubledList = list.map(double)
+```
+
+Declarative programming relies on what are known as **pure functions**.
+Pure functions are functions with no side effects, they simple take in
+an input, and spit out an output without affecting any sense of global state.
+
+```js
+// pure functions are very easy to reason about and test
+const double = num => num * 2
+const addCurlyBraces = string => `{${string}}`
+
+// impure because list is affected
+const list = []
+const impure = num => list.push(num)
+```
+
+What's more, because these functions are stateless, we can very easily combine
+them with composition.
