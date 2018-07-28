@@ -11,5 +11,5 @@
 
 module.exports = function function_dispatcher(function_list, args_list) {
    /* Your code goes here */
-   return function_list.map((f, i) => f(...args_list[i]))
-}
+   return function_list.map((f, i) => f(...args_list[i]));
+};

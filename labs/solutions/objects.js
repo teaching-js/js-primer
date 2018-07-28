@@ -11,8 +11,8 @@
  * me.can_drink() should be true
  */
 
-function make_person(name,age) {
-
+function make_person (name, age) {
+   return age + name;
 }
 
-module.exports = make_person
+module.exports = make_person;

@@ -14,9 +14,10 @@ Three key lessons and a bunch of resources to help you become a better programme
    - Dealing with async challenges
 
 ## Resources
-* [Examples](examples)
+* [Tutorials](tutorials)
+* [Labs](labs)
 * [Lecture Content](content)
-* [Assignments](assignment_ideas)
+* [Assignment](assignment)
 * [Additional Resources](resources)
 
 ## Disclaimer:
