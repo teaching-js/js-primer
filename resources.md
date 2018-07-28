@@ -14,6 +14,7 @@ description: Additional resources you may find useful from around the web.
 * [Functional Programming in JS](https://github.com/stoeffel/awesome-fp-js)
 * [Basic DOM Manipulation](https://www.digitalocean.com/community/tutorials/how-to-make-changes-to-the-dom)
 * [Bubbling And Capturing](https://javascript.info/bubbling-and-capturing)
+
 ## Frameworks
 * [React](https://reactjs.org/)
 * [Vue.js](http://vuejs.org/)
