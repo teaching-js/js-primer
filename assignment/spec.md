@@ -10,20 +10,30 @@ API is given. Students Build front end.
 > `POST` `/api/login`
 
 Takes in a `auth` object and returns a new token that can be used to validate identity to future calls to the api.
+Will also set the token in the cookie.
 
 Returns a error object on unsuccessful login
+
+> `GET` `/api/status`
+
+Takes in a url parameter `t` which specifies a user token and returns a status object
+If t is not specified, reads token from cookie
 
 > `GET` `/api/user`
 
 Takes in a url parameter `t` which specifies a user token and returns a user object
+If t is not specified, reads token from cookie.
 
 > `GET` `/api/chats`
 
 Takes in a url parameter `t` which specifies a user token and returns a list of chat descriptor objects
+If t is not specified, reads token from cookie.
 
 > `GET` `/api/messages`
 
 Takes in a url parameter `t` which specifies a user token, a parameter `cid` which is the id of the chat and `l` which specifies the maximum number of messages to grab. Returns a list of message objects.
+
+If t is not specified, reads token from cookie.
 
 ...more to be done
 
@@ -37,6 +47,14 @@ Takes in a url parameter `t` which specifies a user token, a parameter `cid` whi
 {
   username: text,
   password: text
+}
+```
+
+> `status`
+
+```
+{
+  loggedIn: boolean
 }
 ```
 
