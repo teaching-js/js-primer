@@ -30,6 +30,15 @@ button.btn {
    border-radius: 0.5em;
 }
 
+#input {
+  border: 2px #EBEBEB solid;
+  border-radius: 25px;
+  min-height: 100px;
+  padding: 2rem;
+}
+#input:focus {
+  outline: none;
+}
 #output {
   border: 2px #EBEBEB solid;
   border-radius: 25px;
