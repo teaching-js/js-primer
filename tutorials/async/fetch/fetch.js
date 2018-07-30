@@ -10,7 +10,7 @@ function init() {
     /* Assuming a browser context */
     Library.getJSON(`${API_URL}users`);
     // chain the promise and translate the response
-    // object in json to a js object
+    // object in json to a JS object
     .then((data) => {
       // remove loading message
       Library.clearOutput();

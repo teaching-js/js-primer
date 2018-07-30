@@ -17,7 +17,7 @@ compiled to byte-code before it's finally executed.
 
 Common JavaScript engines include:
 * Rhino (Mozilla)
-* V8 (Chrome, Opera, Node.js)
+* V8 (Chrome, Opera, Node.JS)
 * JavaScriptCore (Safari)
 * Chakra (Edge)
 * Many others..
@@ -29,11 +29,11 @@ foundation. For the basics however, these differences aren't really worth dwelli
 
 ## Warning
 
-As we go through js we will talk a lot about things that js _can_ do but that you _shouldn't_ do. And various things that the language is trying to shift away from and things it's trying to move towards.
+As we go through JS we will talk a lot about things that  _can_ do but that you _shouldn't_ do. And various things that the language is trying to shift away from and things it's trying to move towards.
 
-It's important to keep in mind that the reason js is so in flux is because it was, is and will continue to be the primary programming language for a lot of web development.
+It's important to keep in mind that the reason  is so in flux is because it was, is and will continue to be the primary programming language for a lot of web development.
 
-As such it has a incredible amount of legacy features and syntax that can't be taken out in fear of breaking older websites. At the same time though, js is being used more and more so new features and paradigms are constantly being added and discussed to make the language work for various applications better.
+As such it has a incredible amount of legacy features and syntax that can't be taken out in fear of breaking older websites. At the same time though,  is being used more and more so new features and paradigms are constantly being added and discussed to make the language work for various applications better.
 
 When building a backend, you can choose from a set of well defined languages, (C, Ruby, python, etc) and each has it's strengths and weaknesses you can consider before choosing the language to develop with. However, with client side code, your only option is really\* javascript at the moment. So JS has had to become a jack of all trades while at the same time keeping legacy features from a time when JS was designed to do very simple small bits of interactivity.
 
@@ -44,7 +44,7 @@ It's good to keep this in mind because it's very often you'll meet things in JS 
 ## Usage
 
 Most commonly we use JavaScript in web browsers for client-side script execution,
-but it's also become increasingly popular as a server side language through `node.js`.
+but it's also become increasingly popular as a server side language through `node.`.
 JavaScript can even be used to develop and build native applications for desktop and
 mobile.
 
@@ -266,11 +266,11 @@ console.log(obj['a-foo-bar']);
 
 #### Classes & Prototypes
 
-JS is similar to other OO languages with an inheritance model. Javascript works slightly different to many of these under the hood, taking advantage of a technique called [prototypal inheritance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain).  
+JS is similar to other OO languages with an inheritance model. JavaScript works slightly different to many of these under the hood, taking advantage of a technique called [prototypal inheritance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain).  
 
 Anything that is created with the `new` keyword will inherit from the **prototype** chain of the object being initialised. This is *like* subclassing, but it's also not quite the same.
 
-The ES2015 language specification introduced a new syntax for declaring classes in Javascript. This looks something like:
+The ES2015 language specification introduced a new syntax for declaring classes in JavaScript. This looks something like:
 
 ```js
 class Person {

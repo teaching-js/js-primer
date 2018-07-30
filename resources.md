@@ -10,7 +10,7 @@ description: Additional resources you may find useful from around the web.
 
 ## Additional Resources
 * [You Don't Know JS, by Kyle Simpson](https://github.com/getify/You-Dont-Know-JS)
-* [Awesome Javascript](https://github.com/sorrycc/awesome-javascript)
+* [Awesome JavaScript](https://github.com/sorrycc/awesome-javascript)
 * [Functional Programming in JS](https://github.com/stoeffel/awesome-fp-js)
 * [Basic DOM Manipulation](https://www.digitalocean.com/community/tutorials/how-to-make-changes-to-the-dom)
 * [Bubbling And Capturing](https://javascript.info/bubbling-and-capturing)
