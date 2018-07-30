@@ -17,7 +17,7 @@ compiled to byte-code before it's finally executed.
 
 Common JavaScript engines include:
 * Rhino (Mozilla)
-* V8 (Chrome, Opera, Node.js)
+* V8 (Chrome, Opera, Node.JS)
 * JavaScriptCore (Safari)
 * Chakra (Edge)
 * Many others..
@@ -29,23 +29,23 @@ foundation. For the basics however, these differences aren't really worth dwelli
 
 ## Warning
 
-As we go through js we will talk a lot about things that js _can_ do but that you _shouldn't_ do. And various things that the language is trying to shift away from and things it's trying to move towards.
+As we go through JS we will talk a lot about things that  _can_ do but that you _shouldn't_ do. And various things that the language is trying to shift away from and things it's trying to move towards.
 
-It's important to keep in mind that the reason js is so in flux is because it was, is and will continue to be the primary programming language for a lot of web development.
+It's important to keep in mind that the reason  is so in flux is because it was, is and will continue to be the primary programming language for a lot of web development.
 
-As such it has a incredible amount of legacy features and syntax that can't be taken out in fear of breaking older websites. At the same time though, js is being used more and more so new features and paradigms are constantly being added and discussed to make the language work for various applications better.
+As such it has a incredible amount of legacy features and syntax that can't be taken out in fear of breaking older websites. At the same time though,  is being used more and more so new features and paradigms are constantly being added and discussed to make the language work for various applications better.
 
-The issue is that with on hardware software you can have a set of well defined languages, (C, Ruby, python, etc) and each has it's strengths and weaknesses you can consider before choosing a language.
+When building a backend, you can choose from a set of well defined languages, (C, Ruby, python, etc) and each has it's strengths and weaknesses you can consider before choosing the language to develop with. However, with client side code, your only option is really\* javascript at the moment. So JS has had to become a jack of all trades while at the same time keeping legacy features from a time when JS was designed to do very simple small bits of interactivity.
 
-With client side code, you're only option is really javascript at the moment. So Js has had to become a jack of all trades while at the same time keeping legacy features from a time when js was designed to do very simple small bits of interactivity.
+It's good to keep this in mind because it's very often you'll meet things in JS that are confusing, stupid and outright infuriating.
 
-It's good to keep this in mind because it's very often you'll meet things in js that are confusing, stupid and outright infuriating.
+\*Not strictly true (see WebAssembly, various transpilers, applets).
 
 ## Usage
 
 Most commonly we use JavaScript in web browsers for client-side script execution,
-but it's also become increasingly popular as a server side language through `node.js`.
-JavaScript is even used to develop and build native applications for desktop and
+but it's also become increasingly popular as a server side language through `node.`.
+JavaScript can even be used to develop and build native applications for desktop and
 mobile.
 
 This course will focus on JavaScript in the browser.
@@ -70,8 +70,7 @@ Things like:
 
 ## Why Use JS?
 
-JavaScript is the *only*\* language that allows client side code-execution in the browser
-which makes it the only tool web developers have available to create more complex web applications.
+JavaScript is the *only*\* language that is available for developers to execute code client-side in the browser. This makes it the only tool web developers have available to create more complex web applications.
 
 Without JavaScript we can only update a page's state by re-requesting the page from the
 server.
@@ -81,7 +80,7 @@ JavaScript allows us to have features that are common-place in native applicatio
 
 ## In the browser
 
-There are a number of ways to declare scripts in the browser. More on that [here](quickstart).
+There are a number of ways to declare scripts in the browser. More on that [here](../quickstart.md).
 
 ```html
 <!DOCTYPE html>
@@ -110,8 +109,7 @@ Something to note; JavaScript will execute as soon as it's parsed by the browser
 may not be what is desired. Usually it isn't -- particularly for scripts that
 need to interact with the DOM, or scripts that require other scripts to first load before they execute.
 
-We'll talk about managing this when we talk more
-about the DOM.
+We'll talk about managing this when we talk more about the DOM.
 
 ## Grammar
 
@@ -131,14 +129,14 @@ in the program.
 The `let` prefix is slightly more flexible in that it can be reassigned, and should be used when `const` cannot.
 
 The use of `var` no longer makes sense in modern JavaScript; it's like `let` in that it can be reassigned,
-but is also 'hoisted' to the top of the current code block.
+but is also ['hoisted'](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting) to the top of the current function scope.
 
 Given this is a common source of bugs, and given it offers no real advantage over `let`, you should really always use `let`.
 
 ```js
-const myVar      = 10;
-let   myOtherVar = 'Dog';
-var   myVarVar   = []; // should be let or const
+const myVar = 'Dog';
+let myOtherVar = 'Dog';
+var myVarVar = 'Dog'; // should be let or const
 ```
 
 ### Operators
@@ -148,7 +146,7 @@ with a few additional ones.
 
 ```js
 // assignment
-let      a = 5;
+let a = 5;
 const list = [1, 5];
 
 // bitwise operations
@@ -162,13 +160,10 @@ const list = [1, 5];
 // eg.
 1 == '1' // true
 
-// strict equality (reference or value equality)
+// strict equality: If the values have different types, the values are considered unequal. Neither value is implicitly converted to some other value before being compared.
 ===, !==
 // eg.
 1 === '1' // false
-
-// in x, like python
-a in list // true
 ```
 
 ## Types
@@ -192,7 +187,20 @@ JavaScript has seven primitive types:
    * Date
    * DOMElement
 
-You can verify the type of any variable with `typeof`.
+You can verify the type of any variable with `typeof x`:
+
+```js
+typeof 'x'
+"string"
+typeof {}
+"object"
+typeof function() {}
+"function"
+typeof []
+"object"
+typeof 99.9999
+"number"
+```
 
 ### Functions
 
@@ -226,54 +234,65 @@ everything is an object, these differences are more semantic than real.
 Adding a property or methods is as simple as:
 
 ```js
-const myObject = {};
-myObject.a = 'a';
-
-myObject.f = function () { return this.a; };
-
-// or in one go:
-const myObject = {
-   a: 'a',
-   f() {
-      return this.a;
-   }
+const myUser = {
+  id: 'UAAAAAAA',
+  displayName: 'Jane Citizen',
+  age: 25, 
 };
+
+// You can also assign & read properties:
+console.log(myUser.age);
+// > 25
+console.log(myUser['age']);
+// > 25
+
+
+myUser.age = 29;
+myUser.address = '123 Fake Street';
 ```
 
-A further note, properties and methods can be accessed with the `.` syntax or
-via their string equivalent.
+
+Access via `.` and `[]` are equivalent, however one should favour to use `.` notation when accessing properties of an object. The only instance where you would not want to use `.` would be if the key contained syntactically invalid characters (i.e. reading data from an api):
 
 ```js
-// that is
-obj.a == obj['a'];
+obj.a === obj['a'];
+
+// Invalid syntax:
+console.log(obj.a-foo-bar);
+
+// Instead, you must use:
+console.log(obj['a-foo-bar']);
 ```
 
-#### The dreaded `this`
+#### Classes & Prototypes
 
-Above you'll note I've added the reserved word `this` to a method statement.
-What is `this`? In simple terms `this` references the enclosing object in which
-a function/statement executes. But be careful!
+JS is similar to other OO languages with an inheritance model. JavaScript works slightly different to many of these under the hood, taking advantage of a technique called [prototypal inheritance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain).  
 
-In some cases the binding of `this` may not be so obvious; usually this is
-caused by calling a function and wrongly assuming the object that it
-is immediately enclosed by is the one you believe it to be.
+Anything that is created with the `new` keyword will inherit from the **prototype** chain of the object being initialised. This is *like* subclassing, but it's also not quite the same.
 
-For more on `this`, check out [*this* article](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch1.md).
+The ES2015 language specification introduced a new syntax for declaring classes in JavaScript. This looks something like:
 
+```js
+class Person {
+  constructor(firstName, lastName, age) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+  }
+  
+  getFullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+  
+  canDrinkAlcohol() {
+    return this.age >= 18;
+  }
+}
 
-#### Prototypes and constructor functions
+new Person('Jeff', 'Goldblum', 50);
+```
 
-In the first example on Objects above we used the `new` keyword as an
-alternate way to create an Object; but we simply used it to create a default
- object, and realistically, we would always use the far simpler `obj = {}` syntax to do so.
-
-Anything that is created with the `new` keyword will inherit from the **prototype**
-chain of the object being initialised. This is *like* subclasses, but it's also not the same.
-
-To properly create a complex object, we need can have a function constructor and
-we need to extend the Prototype of said function.
-
-This looks something like:
+It is functionally equivalent to the following (just syntatic sugar), but is easier to read and write & reason about:
 
 ```js
 // note the use of this in this special constructor
@@ -297,40 +316,11 @@ new Person('Jeff', 'Goldblum', 50);
 // => Person { firstName: 'Jeff', lastName: 'Goldblum', age: 50 }
 ```
 
-Our new Person object will have access to the methods in the prototype, and
-magically, the binding of this has already been bound properly to the object we
-want.
+#### The dreaded `this`
 
-#### Avoiding `new` altogether
+The above example uses the reserved word `this`. It works similarly to Java's `this` or Python's `self`. However, it's worth noting here that `this` can be re-assigned (or may be not assigned to the right `this` in some instances) and can cause subtle, hard to debug bugs in your program. 
 
-Modern JavaScript has tried to move away from needing to
-use `new` by replacing constructors, with factory patterns
-which return an instance of an object. This can often
-be a cleaner way to construct objects in a more
-functional way and can avoid dealing with `this`.
-
-An example:
-
-```js
-// this function has the added benefit
-// of hiding our properties from direct manipulation.
-// through what's called a closure -> discussed later.
-function PersonFactory(firstName, lastName, age) {
-
-   return {
-      getFullName () {
-         return `${firstName} ${lastName}`;
-      },
-
-      canDrinkAlcohol() {
-         return age >= 18;
-      }
-   }
-}
-
-// which we'd call like
-const jeff = PersonFactory('Jeff', 'Goldblum', 50);
-```
+For more on `this`, check out [*this* article](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch1.md).
 
 ## Scope, Control Flow, Loops and Iteration
 
@@ -361,44 +351,11 @@ function myFunction() {
 // this will be hoisted
 var name;
 ```
-... Is valid.
-
-#### Closures
-
-Closures are a super important subject to properly understand
-if you want to be a true JavaScript ninja. Closures simply allow
-a reference to a variable to remain even if it drops out of technical scope.
-Don't dwell too much on this. [Here's a much better explanation](https://hackernoon.com/understanding-javascript-closures-4188edf5ea1b).
-
-```js
-// a simple closure
-function closureFunction() {
-
-   // here the count variable is only in the function's scope,
-   // but myObject stores a reference so it hangs around even when
-   // the function returns.
-   let count = 0;
-
-   const myObject = {
-      counter() {
-         return count;
-      },
-      increment() {
-         count++;
-      }
-   };
-
-   return myObject;
-}
-
-const obj = closureFunction();
-obj.counter(); // == 0 Because obj has a reference to count
-```
+... Is valid. (Please don't do this though!)
 
 #### Garbage Collection
 
-Variables that drop out of scope or are no longer reachable
- will automatically be deleted by the garbage collector. Note, this is why elements referenced under closure aren't deleted, they're still in usable scope.
+Variables that drop out of scope or are no longer reachable will automatically be deleted by the garbage collector. 
 
 ### Control Flow
 
@@ -415,7 +372,7 @@ if (condition) {
    // do something
 }
 
-// as with c, one liners don't require brackets.
+// as with c, one liners don't require brackets. (don't do this though!)
 if (condition)
    // do something
 else
@@ -497,16 +454,15 @@ try {
    // an error occurred
    const message = e.message;
 } finally {
-   // do something that u would do either way
+   // do something that you would do either way
 }
 
 // can create own errors or throw errors like so.
 const e = new Error('Bad Thing Happened');
+throw e;
 
-// And there's also the 'throw' syntax
-// you don't even need to create a custom error you can simply throw signal
-// something went wrong.
-throw 'Error';
+// Or in one line:
+throw new Error('Bad Thing Happened');
 ```
 
 One further note on errors. We can, if we so choose, create specific catch handlers.
@@ -516,10 +472,12 @@ Most of the time this is overkill, but it can be useful:
 ```js
 try {
     somethingBad();
-} catch (e if e instanceof TypeError) {
+} catch (e) {
+  if (e instanceof TypeError) {
     // statements to handle TypeError exceptions
-} catch (e if e instanceof RangeError) {
-    // statements to handle RangeError exceptions
+  } else if (e instanceof RangeError) {
+   // statements to handle RangeError exceptions 
+  }
 }
 ```
 

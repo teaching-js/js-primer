@@ -13,5 +13,5 @@ function init() {
   document.removeEventListener('DOMContentLoaded', init);
 }
 
-// here's a differnet way to exec js scripts
+// here's a differnet way to exec JS scripts
 document.addEventListener('DOMContentLoaded', init);

@@ -6,7 +6,7 @@ Essentially, a promise will wait until an async operation
 resolves (or is rejected), before continuing.
 
 This is closer to the way a procedural program runs,
-but is not the way js would run without promises.
+but is not the way JS would run without promises.
 
 */
 
