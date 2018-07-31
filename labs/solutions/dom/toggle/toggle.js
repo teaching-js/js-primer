@@ -1,10 +1,10 @@
 (function() {
    'use strict';
    // write your js here.
-   const d = document
-   const output = d.getElementById('output')
+   const d = document;
+   const output = d.getElementById('output');
 
-   const interval = setInterval(() => {
-      output.classList.toggle('hide')
-   }, 2000)
+   setInterval(() => {
+      output.classList.toggle('hide');
+   }, 2000);
 }());
