@@ -15,21 +15,22 @@
   ],
   "author": "Alex Hinds <alex.hinds141@gmail.com>",
   "contributors": [
-     {
-        "name" : "Zain Afzal",
-        "url" : "http://www.zainafzal.com/"
-     },
-     {
-        "name" : "Alex Hinds",
-        "url" : "https://alhinds.com/"
-     }
+    {
+      "name": "Zain Afzal",
+      "url": "http://www.zainafzal.com/"
+    },
+    {
+      "name": "Alex Hinds",
+      "url": "https://alhinds.com/"
+    }
   ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/DarkPurple141/js-primer/issues"
   },
   "homepage": "https://github.com/DarkPurple141/js-primer#readme",
-  "dependencies": {
+  "devDependencies": {
+    "chai": "^4.1.2",
     "eslint": "^5.2.0",
     "mocha": "^5.2.0"
   }
