@@ -1,39 +1,39 @@
-(function() {
-   'use strict';
+(function () {
+    'use strict';
 
-   window.onload = init;
-   let output;
+    window.onload = init;
+    let output;
 
 
-   function createUserDiv(user) {
+    function createUserDiv(user) {
 
-      const div = document.createElement('div');
-      div.className = 'user';
+        const div = document.createElement('div');
+        div.className = 'user';
 
-      const h2 = document.createElement('h2');
-      h2.innerText = user.name;
+        const h2 = document.createElement('h2');
+        h2.innerText = user.name;
 
-      const p = document.createElement('p');
-      p.innerText = user.company.catchPhrase;
+        const p = document.createElement('p');
+        p.innerText = user.company.catchPhrase;
 
-      div.appendChild(h2);
-      div.appendChild(p);
+        div.appendChild(h2);
+        div.appendChild(p);
 
-      return div;
-   }
+        return div;
+    }
 
-   function append(element) {
-      output.appendChild(element);
-   }
+    function append(element) {
+        output.appendChild(element);
+    }
 
-   function init() {
+    function init() {
 
-      output = document.getElementById('output');
+        output = document.getElementById('output');
 
-      fetch('https://jsonplaceholder.typicode.com/users')
-         .then(res => res.json())
-         .then(data => data.map(createUserDiv))
-         .then(elements => elements.map(append));
-   }
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(res => res.json())
+            .then(data => data.map(createUserDiv))
+            .then(elements => elements.map(append));
+    }
 
 }());

@@ -1,0 +1,25 @@
+.user {
+    padding: 20px;
+    width: 350px;
+ }
+
+.posts {
+    padding: 0;
+}
+
+.post {
+    list-style-type: square;
+    color: grey;
+}
+
+ code {
+    font-size: 1em;
+ }
+
+ #output {
+    align-items: baseline;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+ }
