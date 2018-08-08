@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from flask_cors import CORS
 import json
 import sqlite3
+from flask.ext.api import status
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'f9843yhfiujkhsd837y4'
@@ -18,48 +19,32 @@ def jsonResponse(j):
     )
     return response
 
-def error(msg):
-    return jsonResponse({
-        "error": True,
-        "error_msg":msg
-        })
+# currently logs out any other session when a user
+# logs in
+def get_usr(usrname,passwd):
+    conn = sqlite3.connect("test.sb")
+    c = conn.cursor()
+    c.execute("SELECT USERNAME FROM USERS WHERE USERNAME=? AND PASSWORD=?",usrname,passwd)
+    conn.close()
+    return c.fetchone()
 
-def result(j):
-    j["error"] = False
-    j["error_msg"] = None
-    return jsonResponse(j)
-
-# data base interactions
-
-def get_user(usr, password):
-    db_conn = sqlite3.connect("test.db")
-    c = db_conn.cursor()
-    injects = (usr,password)
-    c.execute("SELECT USERNAME FROM USERS WHERE USERNAME=? AND PASSWORD=?",injects)
-    data = c.fetchone()
-    if data == None:
-        return None
-    tkn = generate_token()
-    injects = (tkn,username)
-    c.execute("UPDATE USERS SET TOKEN=? WHERE USERNAME=?",injects)
-    db_conn.close()
-    return {
-        "username": data[0],
-        "token": tkn
-    }
-
+# should be secure
+def is_logged_in():
+    if "username" in session:
+        return True
+    return False
 
 # endpoints
-
 @app.route("/api/login", methods=['POST'])
 def index():
     data = request.get_json()
     usr = data.get("username",None)
     password = data.get("password",None)
-    user = get_user(usr,password)
-    if not user:
-        return error("Unknown Username/Password")
-    return result(user)
+    usr = get_usr(usr,password)
+    if usr == None:
+        return status.HTTP_401_UNAUTHORIZED
+    session['username'] = usr
+    return status.HTTP_200_OK
 
 if __name__ == "__main__":
     app.run(debug=True)
