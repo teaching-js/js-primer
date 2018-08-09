@@ -14,18 +14,19 @@
       <main role="main" id="main">
          <h1>Expand</h1>
          <p class="lead"> Extend your collapse code to change the icon from <i class="material-icons">expand_less</i> to <i class="material-icons">expand_more</i> once the div is collapsed. The button should then expand the div when clicked on and revert the icon</p>
+         <p class="lead"> <b>Challange:</b> Finish this excersise using only a single click event listener and 0 changes to the html</p>
          <p class="lead"> <a href="https://material.io/tools/icons/?icon=expand_less&style=baseline"><b>Hint</b></a> </p>
          <br>
          <div class="info-item">
            <div class="tool-bar">
              <div class="expand-collapse-btn">
-               <i class="material-icons">expand_less</i>
+               <i class="material-icons" id="item-1">expand_less</i>
              </div>
            </div>
            <div class="content">
              <h3> COMP0000 </h3>
              <p class="lead"> Teaches Kids how to cry effectively </p>
-             <p class="lead extra-info">
+             <p class="lead extra-info" id="item-1-content">
               So really this course is all about preparing students for when they want to cry because of comp, it puts them in real world
               situations where they will work with awful and buggy code and teach them to cope.
               this course covers everything from efficient tissue usage to effective ice cream utilisation stratagies.
@@ -36,13 +37,13 @@
          <div class="info-item">
            <div class="tool-bar">
              <div class="expand-collapse-btn">
-               <i class="material-icons">expand_less</i>
+               <i class="material-icons" id="item-2">expand_less</i>
              </div>
            </div>
            <div class="content">
              <h3> COMP0001 </h3>
              <p class="lead"> Teaches kids how to love </p>
-             <p class="lead extra-info">
+             <p class="lead extra-info" id="item-2-content">
               In todays day and age who needs to learn how to code when none of us really remember how to love.
               this will be a a full course covering how to love. Every week will be 3 tutes where you sit with your classmates
               and recount stories of heart break and then hug it out.
