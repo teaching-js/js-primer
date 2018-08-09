@@ -3,7 +3,7 @@
    const d = document;
    const output = d.getElementById('output');
 
-   const interval = setInterval(() => {
+   void setInterval(() => {
       const d = new Date();
       output.innerText = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
    }, 1000);
