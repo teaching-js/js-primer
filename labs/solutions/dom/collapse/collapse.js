@@ -6,7 +6,7 @@
 //     Take with a grain of salt though
 (function() {
   'use strict';
-  let main = document.getElementById('main');
+  const main = document.getElementById('main');
   main.addEventListener('click', e => {
     if (e.target.tagName == 'I')
       e.target.parentNode.parentNode.parentNode.children[1].children[2].style.display = 'none';
@@ -19,14 +19,16 @@
 //    Which declares a function and then runs it immediately
 //    To run it remove the brackets and function invoke from above and
 //    shift it down here
-function standard() {
+function standard() { /* eslint-disable-line no-unused-vars */
   'use strict';
-  let numCards = 2;
-  let cards = Array(numCards).fill(0).map((x,i)=>`item-${i+1}`);
-  cards.map((x)=>document.getElementById(x).addEventListener("click",toggle));
+  const NUM_CARDS = 2;
+  const cards = Array(NUM_CARDS).fill(0).map((_,i) =>`item-${i+1}`);
+  cards.map(card =>
+    document.getElementById(card).addEventListener('click', toggle)
+  );
 
   function toggle(e) {
     const content = document.getElementById(`${e.target.id}-content`);
-    content.style.display = "none";
+    content.style.display = 'none';
   }
 }
