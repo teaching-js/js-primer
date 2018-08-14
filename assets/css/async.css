@@ -16,6 +16,11 @@
     font-size: 1em;
  }
 
+ img {
+     width: 100%;
+     height: auto;
+ }
+
  #output {
     align-items: baseline;
     justify-content: space-between;
