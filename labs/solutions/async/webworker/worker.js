@@ -1,6 +1,6 @@
 // your web worker goes here.
 
-const API_URL = 'https://thecatapi.com/api/images/get';
+const API_URL = 'https://api.thecatapi.com/v1/images/search?format=src&mime_types=image/gif';
 
 const fetchJSON = (url) => fetch(url).then(res => res.blob());
 
