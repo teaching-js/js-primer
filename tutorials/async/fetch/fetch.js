@@ -8,7 +8,7 @@ function init() {
     const API_URL = 'https://jsonplaceholder.typicode.com/';
 
     /* Assuming a browser context */
-    Library.getJSON(`${API_URL}users`);
+    Library.getJSON(`${API_URL}users`)
     // chain the promise and translate the response
     // object in json to a JS object
     .then((data) => {
