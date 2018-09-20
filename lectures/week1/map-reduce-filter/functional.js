@@ -1,14 +1,13 @@
-const data = require('./course_data_2019.json')
+const data = require('./course_data_2019.json');
 
-console.log(data[0])
+//console.log(data[0]);
 
-const courses = data[0].courses
-    .map(course => ({
-        name: course.name,
-        code: course.code,
-        requirements: course.requirements,
-        study_level: course.study_level
-    })).filter(course => !course.requirements)
+const courses = data[0].courses.map(({ name, code, study_level: level }) => {
+    return {
+        name,
+        code,
+        level
+    };
+});
 
-
-console.log(courses)
+//console.log(courses);
