@@ -15,19 +15,31 @@ const person = {
     speed: 7.5
 };
 
+// example of inline renaming, and destructure syntax
 const { name: zain_name, age, speed } = person;
 
 console.log(zain_name, age, speed);
 
+// example of inline destructure syntax (in a function)
 function personProcessor({ name, age }) {
     console.log(name, age);
 }
 
 personProcessor(person);
 
-function sum(...numbers) {
-    numbers.map(console.log);
+// example of spread syntax
+function printArguments(...args) {
+    args.map(arg => console.log(arg));
 }
 
-sum(1, 2, 3, 4, 5, 6, 7);
+// example of using rest/spread syntax to concatentate two arrays
+const girls = ['Sally', 'Lakshi', 'Sophia', 'Tilly'];
+const boys  = ['Andrew', 'Barry', 'Tobias', 'Prashant'];
+
+const names = [...girls, ...boys];
+
+console.log(names); // ['Sally', 'Lakshi', 'Sophia', 'Tilly', 'Andrew', 'Barry', 'Tobias', 'Prashant'];
+
+// can give this function any number of args.
+printArguments(1, 2, 3, 4, 5, 6, 7);
 

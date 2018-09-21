@@ -1,8 +1,8 @@
-const data = require('./course_data_2019.json');
+const ACCT = require('./accounting_data_2019');
 
-//console.log(data[0]);
+// console.log(ACCT);
 
-const courses = data[0].courses.map(({ name, code, study_level: level }) => {
+const courses = ACCT.courses.map(({ name, code, study_level: level }) => {
     return {
         name,
         code,
@@ -10,4 +10,5 @@ const courses = data[0].courses.map(({ name, code, study_level: level }) => {
     };
 });
 
-//console.log(courses);
+console.log(courses);
+
