@@ -1,0 +1,71 @@
+body {
+  font-family: sans-serif;
+  background: linear-gradient(90deg,blue,#7d2ae8);
+  color: #3f4652;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow-y: scroll;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.zoom {
+  overflow: hidden;
+  height: 50vh;
+  zoom: 2;
+}
+
+.app {
+  margin: auto;
+  width: 300px;
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 6px;
+}
+
+.full-page {
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: transparent;
+  width: 0;
+  height: 100vh;
+  transition: width 1s ease-in-out, opacity 0.5s ease;
+}
+
+.active {
+  color: whitesmoke;
+  width: 100%;
+}
+
+.clear {
+  opacity: 0;
+}
+
+.full-page:first-of-type {
+  background-color: pink;
+}
+
+.full-page:last-of-type {
+  background-color: skyblue;
+}
+
+h1 {
+  margin: 10px 0;
+}
+
+h2 {
+  font-size: 14px;
+  font-weight: normal;
+  margin: 10px 0;
+}
+
+.kitten {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
